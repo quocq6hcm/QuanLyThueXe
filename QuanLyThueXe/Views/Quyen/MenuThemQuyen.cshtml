@@ -1,0 +1,54 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model QuyenViewModel
+@{
+    ViewBag.Title = "MenuThemQuyen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Quyền</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Quyền
+    </h3>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Thêm quyền mới</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="form-group">
+                            <label>Mã quyền</label>
+                            <input type="text" name="MaQuyen" class="form-control" placeholder="" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>Tên quyền</label>
+                            <input type="text" name="TenQuyen" class="form-control" placeholder="" required="">
+                        </div>
+                        <button type="submit" class="btn red">Thêm quyền</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,109 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<HopDongViewModel>
+@{
+    ViewBag.Title = "MenuDanhSachHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Quản lý hợp đồng</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Hợp đồng
+    </h3>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách hợp đồng</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th> Mã số hợp đồng</th>
+                                <th> Lộ trình </th>
+                                <th> Khách hàng </th>
+                                <th> Ngày lập </th>
+                                <th> Trạng thái </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @{
+                                            i++;
+                                            Write(i);
+                                        }
+                                    </td>
+                                    <td>
+                                        <span><a href="@Url.Action("ChiTietHopDong","HopDong",new {@SoHopDong = item.SoHopDong })"> @item.SoHopDong</a></span>
+                                    </td>
+                                    <td><span> @item.LoTrinhs.TenLoTrinh </span></td>
+                                    <td><span>@item.KhachHangs.TenKH </span></td>
+                                    <td><span> @item.NgayLapHD.Value.ToString("dd/MM/yyyy") </span></td>
+                                    <td>
+                                        @{
+                                            if (item.MaTrangThai == "-1")
+                                            {
+                                                <span class="label label-sm label-default">
+                                                    @item.TrangThaiHopDongs.TenTrangThai
+                                                </span>
+                                            }
+                                            if (item.MaTrangThai == "0")
+                                            {
+                                                <span class="label label-sm label-primary">
+                                                    @item.TrangThaiHopDongs.TenTrangThai
+                                                </span>
+                                            }
+                                            if (item.MaTrangThai == "1")
+                                            {
+                                                <span class="label label-sm label-warning">
+                                                    @item.TrangThaiHopDongs.TenTrangThai
+                                                </span>
+                                            }
+                                            if (item.MaTrangThai == "2")
+                                            {
+                                                <span class="label label-sm label-danger">
+                                                    @item.TrangThaiHopDongs.TenTrangThai
+                                                </span>
+                                            }
+                                            if (item.MaTrangThai == "3")
+                                            {
+                                                <span class="label label-sm label-success">
+                                                    @item.TrangThaiHopDongs.TenTrangThai
+                                                </span>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                                                }
+                                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>

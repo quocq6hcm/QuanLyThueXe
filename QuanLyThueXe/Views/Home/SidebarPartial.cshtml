@@ -1,0 +1,58 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiControllerViewModel>
+@{
+    List<LoaiActionViewModel> lstAction = ViewBag.LoaiAction as List<LoaiActionViewModel>;
+    string path = HttpContext.Current.Request.Url.AbsolutePath;
+    string[] a = path.Split('/');
+}
+<ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 20px">
+    <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+    <li class="sidebar-toggler-wrapper hide">
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        <div class="sidebar-toggler"> </div>
+        <!-- END SIDEBAR TOGGLER BUTTON -->
+    </li>
+    <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+    <li class="sidebar-search-wrapper">
+        <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+        <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+        <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+        <!-- END RESPONSIVE QUICK SEARCH FORM -->
+    </li>
+    @foreach (var item in Model)
+    {
+        int i = 0;
+        foreach (var action in lstAction)
+        {
+            if (action.MaController == item.MaController)
+            {
+                i++;
+            }
+        }
+        if (i != 0)
+        {
+            <li class="nav-item @if (item.MaController == a[1]+"Controller") { Write("active open"); }" id="@item.MaController">
+                <a href="#" class="nav-link nav-toggle" id="@item.MaController">
+                    <i class="@item.Icon"></i>
+                    <span class="title">@item.TenController</span>
+                    <span class="@if (item.MaController == a[1]+"Controller") { Write("selected"); }"></span>
+                    <span class="arrow @if (item.MaController == a[1]+"Controller") { Write("open");}"></span>
+                </a>
+                <ul class="sub-menu">
+                    @foreach (var action in lstAction)
+                    {
+                        if (action.MaController == item.MaController)
+                        {
+                            <li class="nav-item sub @if (action.UrlAction == path) { Write("active"); } " id="@action.MaAction">
+                                <a href="@action.UrlAction" class="nav-link" id="@action.MaAction">
+                                    <span class="title">@action.MoTa</span>
+                                    <span class="@if (action.UrlAction == path) { Write("active"); }"></span>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    }
+</ul>

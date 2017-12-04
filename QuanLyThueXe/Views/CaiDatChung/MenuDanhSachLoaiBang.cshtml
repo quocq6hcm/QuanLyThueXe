@@ -1,0 +1,66 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiBangViewModel>
+
+@{
+    ViewBag.Title = "MenuDanhSachLoaiBang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content" style="min-height:1368px">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                @using (Html.BeginForm("ThemBang", "CaiDatChung"))
+                {
+                    <div class="portlet-body col-md-5 pull-right" style="padding-top:25px;float:right">
+                        <div class="form-group col-md-8">
+                            <div>
+                                <input type="text" class="form-control" name="TenBang" placeholder="Nhập tên loại bằng mới" required="" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-1">
+                            <button type="submit" style="background-color:white; border:none">
+                                <i id="AddLoaiKH" class="fa-2x fa fa-plus"> </i>
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách loại bằng</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th> Mã Bằng </th>
+                                <th> Tên Bằng </th>
+                                <th> Mô tả </th>
+                                <th> Chỉnh sửa </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><span>@item.MaBang</span></td>
+                                    <td><span> @item.TenBang </span></td>
+                                    <td><span> @item.MoTa </span></td>
+                                    <td>
+                                        <a href="@Url.Action("ChinhSuaBang","CaiDatChung",new {@MaBang = item.MaBang })"> Chỉnh sửa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+

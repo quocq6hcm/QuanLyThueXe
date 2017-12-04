@@ -1,0 +1,110 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<KhachHangViewModel>
+@{
+    ViewBag.Title = "MenuDanhSachKhachHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Khách hàng</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Khách hàng lẻ
+    </h3>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    @*<div class="portlet-body col-md-5 pull-right" style="padding-top:25px;float:right">
+                            <div class="form-group col-md-1">
+                                <a href="@Url.Action("MenuThemKhachHang", "KhachHang")" class="btn green" style="margin-left:150px">
+                                    Thêm khách hàng
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>*@
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách khách hàng lẻ</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("MenuThemKhachHang", "KhachHang")" class="btn green" style="text-decoration:none;color:white;">
+                                            Thêm khách hàng
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @*<div class="btn-group pull-right">
+                                            <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                                Tools
+                                                <i class="fa fa-angle-down"></i>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right">
+                                                <li>
+                                                    <a href="javascript:;"> Print </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;"> Save as PDF </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:;"> Export to Excel </a>
+                                                </li>
+                                            </ul>
+                                        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th width="5%"> STT</th>
+                                    <th> Tên khách hàng </th>
+                                    <th> Địa chỉ </th>
+                                    <th> Số điện thoại </th>
+                                    @*<th> Loại khách hàng </th>*@
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@{
+                                            i++;
+                                            Write(i);
+                                        }</td>
+                                        <td><a href="@Url.Action("ThongTinChiTiet","KhachHang",new {@MaKH = item.MaKH })"> @item.TenKH</a></td>
+                                        <td><span>@item.DiaChiKH </span></td>
+                                        <td><span> @item.SDT </span></td>
+                                        @*<td><span>@item.LoaiKhachHangs.TenLoaiKH</span></td>*@
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>
+

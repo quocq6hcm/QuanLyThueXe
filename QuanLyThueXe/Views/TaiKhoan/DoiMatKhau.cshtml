@@ -1,0 +1,110 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model TaiKhoanViewModel
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Tài khoản</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Đổi mật khẩu
+    </h3>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN VALIDATION STATES-->
+            <div class="portlet light portlet-fit portlet-form bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Đổi mật khẩu</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <!-- BEGIN FORM-->
+                    @using (Html.BeginForm("DoiMatKhau","TaiKhoan"))
+                    {
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Họ tên
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" data-required="1" class="form-control" required="" value="@Model.NhanViens.HoTen" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.Hidden("TaiKhoanNV",Model.TaiKhoanNV)
+                                    <label class="control-label col-md-2">
+                                        Tài khoản
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" data-required="1" class="form-control" required="" value="@Model.TaiKhoanNV" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Mật khẩu cũ
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="password" name="MatKhauCu" data-required="1" class="form-control" required="" value="">
+                                        <span style="color:red">@ViewBag.MatKhauSai</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Mật khẩu mới
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="password" maxlength="40" name="MatKhau" data-required="1" class="form-control" required="" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Nhập lại mật khẩu
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="password" maxlength="40" name="MatKhauMoi" data-required="1" class="form-control" required="" value="">
+                                        <span style="color:red">@ViewBag.MatKhauTrung</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <p style="color:red">@ViewBag.Success</p>
+                                    <input type="submit" id="DoiMatKhau" class="btn green" value="Cập nhật" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <!-- END FORM-->
+                </div>
+            </div>
+            <!-- END VALIDATION STATES-->
+        </div>
+    </div>
+</div>
+}
+
+

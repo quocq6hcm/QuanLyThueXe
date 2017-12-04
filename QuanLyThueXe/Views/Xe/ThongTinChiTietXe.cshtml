@@ -1,0 +1,285 @@
+﻿@using QuanLyThueXe.ViewModels
+@model XeViewModel
+@{
+    ViewBag.Title = "ThongTinChiTietXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-content" style="min-height:956px">
+    <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Xe</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h3 class="page-title">
+        Thông tin xe
+    </h3>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PROFILE SIDEBAR -->
+            <div class="profile-sidebar">
+                <!-- PORTLET MAIN -->
+                <div class="portlet light profile-sidebar-portlet ">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        @if (!String.IsNullOrEmpty(@Model.HinhAnh))
+                        {
+                            <img src="~/Content/HinhXe/@Model.HinhAnh" class="img-responsive" alt="">
+                        }
+                        else
+                        {
+                            <img src="~/Content/HinhXe/car-flat.png" class="img-responsive" alt="">
+                        }
+                        <style>
+                            .profile-userpic img {
+                                width: 85%;
+                            }
+
+                            .profile-usertitle-job {
+                                font-family: sans-serif;
+                                font-size: 17px;
+                            }
+                        </style>
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">@Model.ThuongHieus.TenThuongHieu</div>
+                        <div class="profile-usertitle-name"> @Model.BienSo </div>
+                        <div class="profile-usertitle-job"> @Model.LoaiXes.TenLoaiXe</div>
+                    </div>
+                    <div class="profile-usermenu">
+                        <ul class="nav">
+                            <li>
+                                <a>
+                                    <i class="icon-home"></i> @Model.CongTies.TenCongTy
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fa fa-road"></i> @Model.SoKm
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fa fa-level-up"></i> @Model.SoLan
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fa fa-calendar"></i> @Model.ThoiGianGanDay
+                                </a>
+                            </li>
+                            @*<li>
+                                    <a>
+                                        <i class="fa fa-user"></i>
+                                        @Model.NhanViens.HoTen
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    @*<div class="profile-userbuttons">
+                            <button type="button" class="btn btn-circle green btn-sm">Gửi Email</button>
+                        </div>*@
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- END MENU -->
+                </div>
+                <!-- END PORTLET MAIN -->
+            </div>
+            <!-- END BEGIN PROFILE SIDEBAR -->
+            <!-- BEGIN PROFILE CONTENT -->
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption caption-md">
+                                    <i class="icon-globe theme-font hide"></i>
+                                    <span class="caption-subject font-blue-madison bold uppercase">Thông tin xe</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+                                    <!-- PERSONAL INFO TAB -->
+                                    <div class="tab-pane active" id="tab_1_1">
+                                        <form role="form" action="#">
+                                            <div class="form-group">
+                                                <label class="control-label">Mã xe</label>
+                                                <input type="text" value="@Model.MaXe" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Biển số xe</label>
+                                                <input type="text" value="@Model.BienSo" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Loại xe</label>
+                                                <input type="text" value="@Model.LoaiXes.TenLoaiXe" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Công ty</label>
+                                                <input type="text" value="@Model.CongTies.TenCongTy" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Thương hiệu</label>
+                                                <input type="text" value="@Model.ThuongHieus.TenThuongHieu" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Tình trạng</label>
+                                                <input type="text" value="@Model.Status" class="form-control" readonly>
+                                            </div>
+                                            @*<div class="form-group">
+                                                <label class="control-label">Đăng kí</label>
+                                                @if (!String.IsNullOrEmpty(@Model.DangKi.ToString()))
+                                                {
+                                                    <input type="text" value="@Model.DangKi.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Đăng kiểm</label>
+                                                @if (!String.IsNullOrEmpty(@Model.DangKiem.ToString()))
+                                                {
+                                                    <input type="text" value="@Model.DangKiem.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>*@
+                                            @*<div class="form-group">
+                                                    <label class="control-label">Số KM</label>
+                                                    <input type="text" value="@Model.SoKm" class="form-control" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Số Lần</label>
+                                                    <input type="text" value="@Model.SoLan" class="form-control" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Thời gian gần đây</label>
+                                                    @if (!String.IsNullOrEmpty(@Model.ThoiGianGanDay.ToString()))
+                                                    {
+                                                        <input type="text" value="@Model.ThoiGianGanDay.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" value="" class="form-control" readonly>
+                                                    }
+                                                </div>*@
+                                            <div class="form-group">
+                                                <label class="control-label">Nhân viên</label>
+                                                @if (!String.IsNullOrEmpty(@Model.MaNV))
+                                                {
+                                                    <input type="text" value="@Model.NhanViens.HoTen" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                    <label class="control-label">Bảo hiểm tự nguyện</label>
+                                                    @if (!String.IsNullOrEmpty(@Model.BaoHiemTuNguyen.ToString()))
+                                                    {
+                                                        <input type="text" value="@Model.BaoHiemTuNguyen.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text" value="" class="form-control" readonly>
+                                                    }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Bảo hiểm bắt buộc</label>
+                                                @if (!String.IsNullOrEmpty(@Model.BaoHiemBatBuoc.ToString()))
+                                                {
+                                                    <input type="text" value="@Model.BaoHiemBatBuoc.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Đăng kí</label>
+                                                @if (!String.IsNullOrEmpty(@Model.DangKi.ToString()))
+                                                {
+                                                    <input type="text" value="@Model.DangKi.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Đăng kiểm</label>
+                                                @if (!String.IsNullOrEmpty(@Model.DangKiem.ToString()))
+                                                {
+                                                    <input type="text" value="@Model.DangKiem.Value.ToString("dd/MM/yyyy")" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Hợp đồng</label>
+                                                <input type="text" value="@Model.HopDong" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Chủ xe</label>
+                                                <input type="text" value="@Model.ChuXe" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Địa chỉ</label>
+                                                <input type="text" value="@Model.DiaChi" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Mô tả</label>
+                                                <textarea class="form-control" rows="3" readonly>@Model.MoTa</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Ghi chú</label>
+                                                @if (!String.IsNullOrEmpty(@Model.GhiChu))
+                                                {
+                                                    <textarea class="form-control" rows="3" readonly>@Model.GhiChu</textarea>
+                                                }
+                                                else
+                                                {
+                                                    <textarea class="form-control" rows="3" readonly></textarea>
+                                                }
+                                            </div>
+                                            <div class="margiv-top-10">
+                                                <a href="@Url.Action("ChinhsuaXe", "Xe", new { @id = @Model.MaXe })" class="btn green"> Cập nhật</a>
+                                                <button class="btn red">
+                                                    <a href="@Url.Action("XoaXe", "Xe", new { @MaXe = @Model.MaXe })" style="color:white">Xóa</a>
+                                                </button>
+                                                <a href="/Xe/MenuDanhSachXe" class="btn grey-salsa btn-outline">Trở về</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- END PERSONAL INFO TAB -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+</div>

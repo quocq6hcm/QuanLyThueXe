@@ -1,0 +1,100 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoTrinhViewModel>
+
+@{
+    ViewBag.Title = "ChinhSuaLoTrinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LoTrinhViewModel lt = ViewBag.model as LoTrinhViewModel;
+    IEnumerable<KhachHangViewModel> lstKH = ViewBag.MaKH as IEnumerable<KhachHangViewModel>;
+}
+
+<div id="DSLT">
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang Chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Lộ Trình</span>
+                </li>
+            </ul>
+        </div>
+        <h3 class="page-title">
+            Lộ Trình
+        </h3>
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách lộ trình</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        @using (Html.BeginForm("ChinhSuaLoTrinh", "LoTrinh"))
+                        {
+                            <table class="table table-hover table-bordered" id="sample_editable_1">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th> Mã lộ trình </th>
+                                        <th> Tên lộ trình </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (@item.MaLoTrinh == @lt.MaLoTrinh)
+                                        {
+                                            <tr>
+                                                @Html.Hidden("MaLoTrinh", item.MaLoTrinh)
+                                                <td>@item.STT</td>
+                                                <td><span>@item.MaLoTrinh</span></td>
+                                                <td><input type="text" name="TenLoTrinh" class="form-control isEmpty" value="@item.TenLoTrinh" required="" /></td>
+                                                <td>
+                                                    <input type="submit" value="Lưu" class="btn btn-danger luuLT" /> ||
+                                                    <a href="~/LoTrinh/MenuDanhSachLoTrinh" class="btn btn-default" style="color:red">Hủy</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>@item.STT</td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class="chinhsua" data-malt="@item.MaLoTrinh"> @item.MaLoTrinh</a>
+                                                </td>
+                                                <td><span> @item.TenLoTrinh </span></td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("input[type='checkbox']").click(function () {
+        $(this).change(function () {
+            if ($(this).is(':checked')) {
+                $(this).val('true');
+            }
+            else {
+                $(this).val('false');
+            }
+        })
+    })
+</script>

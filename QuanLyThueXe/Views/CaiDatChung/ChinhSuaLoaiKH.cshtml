@@ -1,0 +1,79 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiKhachHangViewModel>
+
+@{
+    ViewBag.Title = "ChinhSuaLoaiKH";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LoaiKhachHangViewModel loaikh = ViewBag.model as LoaiKhachHangViewModel;
+}
+
+<div class="page-content" style="min-height:1368px">
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách loại khách hàng</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    @using (Html.BeginForm("ChinhSuaLoaiKH", "CaiDatChung"))
+                    {
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Mã loại khách hàng </th>
+                                    <th> Tên loại khách hàng </th>
+                                    <th> Chỉnh sửa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (@item.MaLoaiKH == @loaikh.MaLoaiKH)
+                                    {
+                                        <tr>
+
+                                            @Html.Hidden("MaLoaiKH", item.MaLoaiKH)
+                                            <td><span>@item.MaLoaiKH</span></td>
+                                            <td><input type="text" name="TenLoaiKH" class="form-control input-small" value="@item.TenLoaiKH" required="" maxlength="100" /></td>
+                                            <td>
+                                                <input type="submit" value="Lưu" id="Luu" /> ||
+                                                <a href="~/CaiDatChung/MenuDanhSachLoaiKH" style="color:red">Trở về</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td><span>@item.MaLoaiKH</span></td>
+                                            <td><span> @item.TenLoaiKH </span></td>
+                                            <td>
+                                                <a href="@Url.Action("ChinhSuaLoaiKH","CaiDatChung",new {@MaLoaiKH = item.MaLoaiKH })"> Chỉnh sửa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+<style>
+    #Luu {
+        border: none;
+        background: none;
+        color: blue;
+    }
+</style>
+
+

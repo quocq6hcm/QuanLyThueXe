@@ -1,0 +1,99 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<PhieuThuViewModel>
+@{
+    ViewBag.Title = "ChinhSuaPT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhieuThuViewModel pt = ViewBag.model as PhieuThuViewModel;
+    TaiKhoanViewModel nv = Session["TaiKhoan"] as TaiKhoanViewModel;
+}
+
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang Chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Phiếu thu</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="page-title">
+        Phiếu thu
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chỉnh sửa phiếu thu</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    @using (Html.BeginForm("ChinhSuaPT", "ThuChi"))
+                    {
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Số PT </th>
+                                    <th> Ngày lập </th>
+                                    <th> Lý do </th>
+                                    <th> Số tiền thu </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (@item.SoPhieuThu == @pt.SoPhieuThu)
+                                    {
+                                        <tr>
+                                            @Html.Hidden("SoPhieuThu", item.SoPhieuThu)
+                                            @Html.Hidden("MaNV", nv.MaNV)
+                                            <td><span>@item.SoPhieuThu</span></td>
+                                            <td><input type="text" name="NgayThu" class="form-control input-small" value="@item.NgayThu" readonly /></td>
+                                            <td><input type="text" name="LyDo" class="form-control input-small" value="@item.LyDo" required="" maxlength="100" /></td>
+                                            <td><input type="number" name="SoTienThu" class="form-control input-small" value="@item.SoTienThu" required="" maxlength="100" /></td>
+                                            <td>
+                                                <input type="submit" value="Lưu" id="Luu" /> ||
+                                                <a href="~/ThuChi/MenuDanhSachPhieuChi" style="color:red">Trở về</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="@Url.Action("ChinhSuaPT","ThuChi",new {@SoPT = item.SoPhieuThu })"> @item.SoPhieuThu</a>
+                                            </td>
+                                            <td><span> @item.NgayThu </span></td>
+                                            <td><span> @item.LyDo </span></td>
+                                            <td><span> @item.SoTienThu </span></td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+<style>
+    #Luu {
+        border: none;
+        background: none;
+        color: blue;
+    }
+</style>
+
+
+

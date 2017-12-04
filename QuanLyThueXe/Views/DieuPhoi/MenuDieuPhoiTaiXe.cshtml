@@ -1,0 +1,75 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<CT_HopDongViewModel>
+@{
+    ViewBag.Title = "MenuDieuPhoiTaiXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+<div class="page-content" style="min-height:1368px">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách hợp đồng</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th> Mã số hợp đồng</th>
+                                <th> Lộ trình </th>
+                                <th> Ngày đi</th>
+                                <th> Ngày về</th>
+                                <th> Loại xe</th>
+                                <th> Tài xế </th>
+                                <th> Phụ xe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.SoCTHopDong</td>
+                                    <td>
+                                        <span><a href="@Url.Action("ChiTietHopDong","HopDong",new {@SoHopDong = item.SoHopDong })"> @item.SoHopDong</a></span>
+                                    </td>
+                                    <td><span> @item.LoTrinhs.TenLoTrinh </span></td>
+                                    <td><span> @item.NgayDi.ToString("dd/MM/yyyy  HH:mm:ss")</span></td>
+                                    <td><span> @item.NgayVe.ToString("dd/MM/yyyy  HH:mm:ss")</span></td>
+                                    <td><span> @item.LoaiXes.TenLoaiXe</span></td>
+                                    @if (String.IsNullOrEmpty(item.MaTaiXe) && String.IsNullOrEmpty(item.TaiXeNgoai))
+                                    {
+                                        <td><a class="label label-sm label-warning" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> Đang chờ xếp </a></td>
+                                    }
+                                    else if (!String.IsNullOrEmpty(item.MaTaiXe))
+                                    {
+                                        <td><a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })">@item.TaiXes.HoTen</a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })">@item.TaiXeNgoai</a></td>
+                                    }
+                                    @if (String.IsNullOrEmpty(item.PhuXe))
+                                    {
+                                        <td><a class="label label-sm label-warning" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> Đang chờ xếp </a></td>
+                                    }
+                                    else
+                                    {
+                                        <td><a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })">@item.PhuXes.HoTen</a></td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+

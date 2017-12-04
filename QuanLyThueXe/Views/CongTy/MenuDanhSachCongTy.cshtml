@@ -1,0 +1,94 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<CongTiesViewModel>
+
+@{
+    ViewBag.Title = "MenuDanhSachCongTy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content" style="min-height:1368px">
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    @*<div class="portlet-body col-md-5 pull-right" style="padding-top:25px;float:right">
+                        <div class="form-group col-md-1">
+                            <a href="@Url.Action("MenuThemCongTy", "CongTy")" class="btn green" style="margin-left:150px">
+                                Thêm công ty
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>*@
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách công ty</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-toolbar">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="btn-group">
+                                        <a href="@Url.Action("MenuThemCongTy", "CongTy")" class="btn green" style="text-decoration:none;color:white;">
+                                            Thêm công ty
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @*<div class="btn-group pull-right">
+                                        <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
+                                            Tools
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right">
+                                            <li>
+                                                <a href="javascript:;"> Print </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;"> Save as PDF </a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;"> Export to Excel </a>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Mã công ty</th>
+                                    <th> Tên công ty </th>
+                                    <th> Số điện thoại </th>
+                                    <th> Người Liên Hệ </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("ThongTinChiTietCty","CongTy",new {@MaCT = item.MaCongTy })"> @item.MaCongTy</a>
+                                        </td>
+                                        <td><span> @item.TenCongTy </span></td>
+                                        <td><span>@item.SDT </span></td>
+                                        <td><span>@item.NguoiLienHe </span></td>
+                                        
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>
+
+

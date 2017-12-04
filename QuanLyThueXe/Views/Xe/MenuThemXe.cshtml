@@ -1,0 +1,231 @@
+﻿@using QuanLyThueXe.ViewModels
+@model XeViewModel
+@{
+    ViewBag.Title = "MenuThemXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<LoaiXeViewModel> lstLoaiXe = ViewBag.MaLoaiXe as IEnumerable<LoaiXeViewModel>;
+    IEnumerable<ThuongHieuViewModel> lstThuongHieu = ViewBag.MaThuongHieu as IEnumerable<ThuongHieuViewModel>;
+    IEnumerable<CongTiesViewModel> lstCongTy = ViewBag.MaCongTy as IEnumerable<CongTiesViewModel>;
+    IEnumerable<NhanVienViewModel> lstNhanVien = ViewBag.MaNV as IEnumerable<NhanVienViewModel>;
+}
+@using (Html.BeginForm("MenuThemXe", "Xe", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Xe</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Thêm Xe
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-sidebar">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                        <div>
+                            <span class="btn default btn-file">
+                                <span class="fileinput-new"> Chọn hình ảnh </span>
+                                <span class="fileinput-exists"> Đổi hình ảnh </span>
+                                <input type="hidden">
+                                <input type="file" name="HinhXe" />
+                            </span>
+                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Bỏ chọn </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <i class="icon-globe theme-font hide"></i>
+                                        <span class="caption-subject font-blue-madison bold uppercase">Thông tin xe</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_1_1">
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Công ty
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                    <select class="form-control isEmpty" name="MaCongTy" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var c in lstCongTy)
+                                                        {
+                                                            <option value="@c.MaCongTy">@c.TenCongTy</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Thương hiệu xe
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                    <select class="form-control isEmpty" name="MaThuongHieu" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var th in lstThuongHieu)
+                                                        {
+                                                            <option value="@th.MaThuongHieu">@th.TenThuongHieu</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Loại xe
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                    <select class="form-control isEmpty" name="MaLoaiXe" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var lx in lstLoaiXe)
+                                                        {
+                                                            <option value="@lx.MaLoaiXe">@lx.TenLoaiXe</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Biến số xe
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                    <input type="text" name="BienSo" data-required="1" class="form-control isEmpty">
+                                            </div>
+                                            @*<div class="form-group">
+                                                <label class="control-label col-md-2">
+                                                    Ngày đăng kiểm
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control date-picker" size="16" type="text" name="NgayDangKiem">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">
+                                                    Ngày bảo trì xe
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <input class="form-control date-picker" size="16" type="text" name="NgayBaoTriXe">
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Nhân Viên
+                                                    <span class="required" aria-required="true"> </span>
+                                                </label>
+                                                    <select class="form-control" name="MaNV" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var nv in lstNhanVien)
+                                                        {
+                                                            <option value="@nv.MaNV">@nv.HoTen</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Số KM
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input name="SoKm" type="text" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Bảo hiểm tự nguyện
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input class="form-control date-picker" size="16" type="text" name="BaoHiemTuNguyen">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Bảo hiểm bắt buộc
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input class="form-control date-picker" size="16" type="text" name="BaoHiemBatBuoc">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Đăng kí
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input class="form-control date-picker" size="16" type="text" name="DangKi">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Đăng kiểm
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input class="form-control date-picker" size="16" type="text" name="DangKiem">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Hợp đồng
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input name="HopDong" type="text" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Chủ xe
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input name="ChuXe" type="text" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Địa chỉ
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <input name="DiaChi" type="text" class="form-control" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Mô tả
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <textarea name="MoTa" class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">
+                                                    Ghi chú
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                    <textarea name="GhiChu" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-4 col-md-4">
+                                            <input type="submit" class="btn green" value="Thêm xe" />
+                                            <a href="/Xe/MenuDanhSachXe" class="btn grey-salsa btn-outline">Trở về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

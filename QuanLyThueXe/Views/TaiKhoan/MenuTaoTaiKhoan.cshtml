@@ -1,0 +1,121 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model List<NhanVienViewModel>
+@{
+    ViewBag.Title = "MenuTaoTaiKhoan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<QuyenViewModel> lstQuyen = ViewBag.Quyen as IEnumerable<QuyenViewModel>;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Tài khoản</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Tài khoản
+    </h3>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN VALIDATION STATES-->
+            <div class="portlet light portlet-fit portlet-form bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Thêm tài khoản</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <!-- BEGIN FORM-->
+                    @using (Html.BeginForm("MenuTaoTaiKhoan","TaiKhoan"))
+                    { 
+                    <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                        <div class="form-body">
+                            <div class="alert alert-danger display-hide">
+                                <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    Nhân viên
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="MaNV" id="nhanvien_taikhoan" data-Name="Nhân viên" class="form-control select2 select2-hidden-accessible isEmpty" required="" tabindex="-1" aria-hidden="true">
+                                        <optgroup label="">
+                                            <option value="">Select...</option>
+                                            @foreach (var item in Model)
+                                            {
+                                                if (item.MaNV != "admin")
+                                                {
+                                                    <option value="@item.MaNV">@item.HoTen</option>
+                                                    }
+                                                }
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    Tài khoản
+                                    <span class="required" aria-required="true">*</span>
+                                </label>
+                                <div class="col-md-8">
+                                    <input name="TaiKhoanNV" maxlength="20" type="text" class="form-control isEmpty" data-Name="Tài khoản" required="">
+                                    <span class="help-block"> @ViewBag.TrungTK</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    Mật khẩu
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-8">
+                                    <input name="MatKhau" maxlength="50" type="password" class="form-control isEmpty" data-Name="Mật khẩu" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">
+                                    Quyền
+                                    <span class="required" aria-required="true"> * </span>
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="MaQuyen" id="quyen_taikhoan" class="form-control select2 select2-hidden-accessible isEmpty" data-Name="Quyền" required="" tabindex="-1" aria-hidden="true">
+                                        <optgroup label="">
+                                            <option value="">Select...</option>
+                                            @foreach (var q in lstQuyen)
+                                            {
+                                                if (q.MaQuyen != "admin")
+                                                {
+                                                    <option value="@q.MaQuyen">@q.TenQuyen</option>
+                                                }
+                                            }
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" class="btn green" value="Tạo tài khoản" />
+                                    <span class="help-block"> @ViewBag.ThanhCong</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    <!-- END FORM-->
+                </div>
+            </div>
+            <!-- END VALIDATION STATES-->
+        </div>
+    </div>
+</div>
+

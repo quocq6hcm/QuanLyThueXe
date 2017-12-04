@@ -1,0 +1,40 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model NhanVienViewModel
+@{
+    TaiKhoanViewModel taiKhoan = Session["TaiKhoan"] as TaiKhoanViewModel;
+}
+<li class="dropdown dropdown-user">
+    <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+        <img alt="" class="img-circle" src="@Url.Content("~/Content/HinhNV/" + Model.HinhAnh)" />
+        <span class="username username-hide-on-mobile">@Model.HoTen </span>
+        <i class="fa fa-angle-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-default">
+        <li>
+            <a href="@Url.Action("Details","NhanVien",new {@manv = Model.MaNV})">
+                <i class="icon-user"></i> Thông tin cá nhân
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("LichChayTheoMaNV","Home",new {@MaNV = Model.MaNV })">
+                <i class="icon-calendar"></i> Lịch chạy
+            </a>
+        </li>
+        <li class="divider"> </li>
+        <li>
+            <a href="@Url.Action("DoiMatKhau","TaiKhoan",new {@taiKhoan = taiKhoan.TaiKhoanNV })">
+                <i class="icon-lock-open"></i> Đổi mật khẩu
+            </a>
+        </li>
+        <li>
+            <a href="/TaiKhoan/LockScreen">
+                <i class="icon-lock"></i> Màn hình chờ
+            </a>
+        </li>
+        <li>
+            <a href="/TaiKhoan/Logout">
+                <i class="icon-key"></i> Đăng xuất
+            </a>
+        </li>
+    </ul>
+</li>

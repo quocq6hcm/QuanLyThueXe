@@ -1,0 +1,121 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model List<CT_HopDongViewModel>
+@{
+    ViewBag.Title = "LichTheoNgay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/LichChay.js"></script>
+
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Lịch chạy</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Lịch chạy
+    </h3>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách lịch chạy</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <input id="dLichChay" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy")">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="lichChayTheoNgay">
+                        @*<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th width="8%">Ngày/Tháng</th>
+                                    <th width="7%">Giờ đón</th>
+                                    <th>Khách hàng </th>
+                                    <th>Công ty cung cấp</th>
+                                    <th>Tài xế</th>
+                                    <th>Xe</th>
+                                    <th>Hướng dẫn viên</th>
+                                    <th>Lộ trình</th>
+                                    <th width="5%">Ngày</th>
+                                </tr>
+                            </thead>
+                            <tbody id="LichChay">
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                <tr>
+                                    <td><span>@DateTime.Now.ToString("dd/MM")</span></td>
+                                    <td><span> @item.GioDon.Value.ToString("HH:mm")</span></td>
+                                    <td><span>@item.KhachHangs.TenKH</span></td>
+                                    <td>
+                                        @if (!String.IsNullOrEmpty(item.MaCongTy))
+                                                {
+                                                <span>@item.CongTies.TenCongTy</span>
+                                                }
+                                    </td>
+                                    <td>
+
+                                        @if (String.IsNullOrEmpty(item.MaTaiXe) && String.IsNullOrEmpty(item.TaiXeNgoai))
+                                                {
+                                                <a class="label label-sm label-warning" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> Điều phối tài xế</a>
+                                                }
+                                                else if (!String.IsNullOrEmpty(item.TaiXeNgoai))
+                                                {
+                                                <a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> @item.TaiXeNgoai</a>
+                                                }
+                                                else
+                                                {
+                                                <a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiTaiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> @item.TaiXes.HoTen - @item.TaiXes.SDT</a>
+                                                }
+                                    </td>
+                                    <td>
+                                        @if (String.IsNullOrEmpty(item.MaXe) && String.IsNullOrEmpty(item.BienSoXe))
+                                                {
+                                                <a class="label label-sm label-warning" href="@Url.Action("ChiTietDieuPhoiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> Điều phối xe</a>
+                                                }
+                                                else if (!String.IsNullOrEmpty(item.BienSoXe))
+                                                {
+                                                <a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> @item.BienSoXe - @item.LoaiXes.TenLoaiXe</a>
+                                                }
+                                                else
+                                                {
+                                                <a class="label label-sm label-primary" href="@Url.Action("ChiTietDieuPhoiXe","DieuPhoi",new {@SoCTHopDong = item.SoCTHopDong })"> @item.Xes.BienSo - @item.LoaiXes.TenLoaiXe</a>
+                                                }
+                                    </td>
+                                    <td>@item.HuongDanVien</td>
+                                    <td><span>@item.LoTrinhs.TenLoTrinh</span></td>
+                                    <td>@item.NgayDi.ToString("dd") - @item.NgayVe.ToString("dd")</td>
+                                </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>*@
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model NhanVienViewModel
+
+@{
+    ViewBag.Title = "MenuThemNV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<LoaiNhanVienViewModel> lstLoaiNV = ViewBag.MaLoaiNV as IEnumerable<LoaiNhanVienViewModel>;
+    IEnumerable<Tinh_TPViewModel> lstTp = ViewBag.MaTinh as IEnumerable<Tinh_TPViewModel>;
+    IEnumerable<LoaiBangViewModel> lstBang = ViewBag.MaBang as IEnumerable<LoaiBangViewModel>;
+}
+
+@using (Html.BeginForm("MenuThemNV", "NhanVien", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Nhân viên</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Thêm Nhân viên
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-sidebar">
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                            <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+                        </div>
+                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 10px;"></div>
+                        <div>
+                            <span class="btn default btn-file">
+                                <span class="fileinput-new"> Chọn hình ảnh </span>
+                                <span class="fileinput-exists"> Đổi hình ảnh </span>
+                                <input type="hidden">
+                                <input type="file" name="HinhNV" />
+                            </span>
+                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Bỏ chọn </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <i class="icon-globe theme-font hide"></i>
+                                        <span class="caption-subject font-blue-madison bold uppercase">Thông tin nhân viên</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_1_1">
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <label class="control-label">
+                                                        Chức Vụ
+                                                        <span class="required" aria-required="true"> * </span>
+                                                    </label>
+                                                    <select class="form-control isEmpty dropLoaiNhanVien" data-Name="Chức vụ" name="MaLoaiNV" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var lnv in lstLoaiNV)
+                                                        {
+                                                            <option value="@lnv.MaLoaiNV">@lnv.TenLoaiNV</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                </div>
+                                                <label class="control-label">
+                                                    Họ tên
+                                                    <span class="required" aria-required="true"> * </span>
+                                                </label>
+                                                <input type="text" name="HoTen" class="form-control isEmpty" data-Name="Họ tên" required="">
+                                                <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                            </div>
+                                            <div class="form-group ">
+                                                <div class="col-md-3" style="padding-left:0px">
+                                                    <label class="control-label">
+                                                        Số Điện Thoại
+                                                        <span class="required" aria-required="true"> * </span>
+                                                    </label>
+                                                    <input type="text" class="form-control isEmpty" data-Name="Số điện thoại" name="SDT" required="" maxlength="15" />
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                </div>
+                                                <div class="col-md-7" style="padding-left:40px">
+                                                    <label class="control-label">Email</label>
+                                                    <input type="text" class="form-control" name="Email" maxlength="100" />
+                                                    <span style="display: block;height: 6px;color:red;"></span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-3" style="margin-top:15px">
+                                                    <label class="control-label">Ngày Sinh</label>
+                                                    <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="NgaySinh" aria-hidden="true" />
+                                                </div>
+                                                <div class="col-md-7" style="padding-left:40px;  padding-top:15px">
+                                                    <label class="control-label">Giới Tính</label>
+                                                    <div class="input-group">
+                                                        <div class="icheck-inline">
+                                                            <label>
+                                                                <input type="radio" name="GioiTinh" value="true" checked class="icheck"> Nam
+                                                            </label>
+                                                            <label>
+                                                                <input type="radio" name="GioiTinh" value="false" class="icheck"> Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Địa Chỉ</label>
+                                                <input type="text" class="form-control" name="DiaChi">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-labe"> Thành phố </label>
+                                                <select class="form-control" name="MaTinh" aria-required="true" aria-invalid="false" aria-describedby="select-error">
+                                                    <option value="">Select...</option>
+                                                    @foreach (var tp in lstTp)
+                                                    {
+                                                        <option value="@tp.MaTinh">@tp.TenTinh</option>
+                                                    }
+                                                </select><span id="select-error" class="help-block help-block-error"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">CMND</label>
+                                                <input type="text" class="form-control" name="CMND" maxlength="20" />
+                                            </div>
+                                            <div class="divBangLai" style="display:none">
+                                                <div class="form-group">
+                                                    <label class="control-label">GPLX</label>
+                                                    <input type="text" class="form-control" name="GPLX" maxlength="20" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Bằng lái</label>
+                                                    <select class="form-control" name="MaBang" aria-invalid="false" aria-describedby="select-error">
+                                                        <option value="">Select...</option>
+                                                        @foreach (var bl in lstBang)
+                                                        {
+                                                            <option value="@bl.MaBang">@bl.TenBang</option>
+                                                        }
+                                                    </select><span id="select-error" class="help-block help-block-error"></span>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-3" style="margin-top:15px">
+                                                        <label class="control-label">Ngày hết hạn</label>
+                                                        <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="NgayHetHan" aria-hidden="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-6" style="padding-left:0px">
+                                                    <label class="control-label">Ngày Nghỉ</label>
+                                                    <input class="form-control date-picker" size="16" type="text" name="NgayNghi">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="control-label">Lương Thưởng</label>
+                                                    <input type="text" class="form-control" name="LuongThuong" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label" style="padding-top:10px">Thông Tin Khác</label>
+                                                <textarea class="form-control" rows="3" name="ThongTinKhac"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <input type="submit" class="btn green" value="Thêm nhân viên" />
+                                            <a href="/NhanVien/MenuDanhSachNV" class="btn grey-salsa btn-outline">Trở về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END FORM-->
+                        </div>
+                    </div>
+                    <!-- END VALIDATION STATES-->
+                </div>
+            </div>
+        </div>
+    </div>}
+

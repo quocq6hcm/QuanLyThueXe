@@ -1,0 +1,138 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model BangGiaViewModel
+@{
+    ViewBag.Title = "MenuThemBangGia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<LoaiXeViewModel> lstLX = ViewBag.MaLoaiXe as IEnumerable<LoaiXeViewModel>;
+    IEnumerable<KhachHangViewModel> lstKH = ViewBag.MaKH as IEnumerable<KhachHangViewModel>;
+    IEnumerable<LoTrinhViewModel> lstLT = ViewBag.MaLoTrinh as IEnumerable<LoTrinhViewModel>;
+}
+
+@using (Html.BeginForm())
+{
+    <div class="page-content" style="min-height:1368px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Thêm bảng giá</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Khách hàng
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaKH" id="khachhang_list" data-Name="Khách hàng" class="form-control select2 select2-hidden-accessible isEmpty">
+                                            <option value="">Select...</option>
+                                            @foreach (var kh in lstKH)
+                                            {
+                                                <option value="@kh.MaKH">@kh.TenKH</option>
+                                            }
+                                        </select>
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select id="country_list" name="MaLoTrinh" data-Name="Lộ trình" class="form-control select2 select2-hidden-accessible isEmpty">
+                                            @if (lstLT != null)
+                                            {
+                                                <option value="">Select...</option>
+                                                foreach (var lt in lstLT)
+                                                {
+                                                    <option value="@lt.MaLoTrinh">@lt.TenLoTrinh</option>
+                                                }
+                                            }
+                                        </select>
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại Xe
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaLoaiXe" data-Name="Loại xe" class="form-control select2 select2-hidden-accessible isEmpty">
+                                            <option value="">Select...</option>
+                                            @foreach (var lx in lstLX)
+                                            {
+                                                <option value="@lx.MaLoaiXe">@lx.TenLoaiXe</option>
+                                            }
+                                        </select>
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Thời gian(giờ)
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="ThoiGian" type="number" class="form-control isEmpty" data-Name="Thời gian">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số KM
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SoKM" id="SoKM" type="number" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Giá
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="Gia" id="Gia" type="number" class="form-control isEmpty" required="" data-Name="Giá">
+                                        <span style="display: block;height: 6px;color:red;" class="error-number error-message"></span>
+                                    </div>
+                                </div>
+                                @if (ViewBag.BangGia != null)
+                                {
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            <span class="required" aria-required="true"> </span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class='alert alert-success'>@ViewBag.BangGia</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" class="btn green" id="ThemBangGia" value="Thêm bảng giá" />
+                                        <a href="/BangGia/MenuDanhSachBangGia" class="btn grey-salsa btn-outline">Trở về</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+}
+
+

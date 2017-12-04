@@ -1,0 +1,107 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiControllerViewModel>
+@{
+    ViewBag.Title = "ChinhSuaNghiepVu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LoaiControllerViewModel controll = ViewBag.model as LoaiControllerViewModel;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Form Stuff</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="page-title">
+        Nghiệp vụ
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách nghiệp vụ</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-toolbar">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="btn-group">
+                                    <a href="@Url.Action("CapNhat", "LoaiController")" class="btn green">
+                                        Cập nhật
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("ChinhSuaNghiepVu", "LoaiController"))
+                    {
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Mã nghiệp vụ </th>
+                                    <th> Tên nghiệp vụ </th>
+                                    <th> Icon </th>
+                                    <th> Chỉnh sửa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*using (Ajax.BeginForm("ChinhSuaNghiepVu", "LoaiController",new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace,OnSuccess="Success" },new { @id= "Submit"}))*@
+                                @foreach (var item in Model)
+                                {
+                                    if (@item.MaController == @controll.MaController)
+                                    {
+                                        <tr>
+
+                                            @Html.Hidden("MaController", item.MaController)
+                                            <td><span>@item.MaController</span></td>
+                                            <td><input type="text" name="TenController" class="form-control input-small" value="@item.TenController" required="" maxlength="100" /></td>
+                                            <td><input type="text" name="Icon" class="form-control input-small" value="@item.Icon" maxlength="150" /></td>
+                                            <td>
+                                                @*<button type="submit" id="Luu">Lưu</button>*@
+                                                <input type="submit" value="Lưu" id="Luu" />
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td><span>@item.MaController</span></td>
+                                            <td><span> @item.TenController </span></td>
+                                            <td><span>@item.Icon </span></td>
+                                            <td>
+                                                <a href="@Url.Action("ChinhSuaNghiepVu","LoaiController",new {@MaController = item.MaController })"> Chỉnh sửa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+<style>
+    #Luu {
+        border: none;
+        background: none;
+        color: blue;
+    }
+</style>

@@ -1,0 +1,75 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiActionViewModel>
+@{
+    ViewBag.Title = "MenuDanhSachTinhNang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<LoaiControllerViewModel> listController = ViewBag.ListController as List<LoaiControllerViewModel>;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Form Stuff</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="page-title">
+        Tính năng
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách tính năng</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th> Loại tính năng </th>
+                                <th> Tên tính năng </th>
+                                <th> Loại nghiệp vụ </th>
+                                <th> Chỉnh sửa </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><span>@item.TenAction</span></td>
+                                    <td><span name="TenAction" class="edit"> @item.MoTa </span></td>
+                                    @foreach (var controll in listController)
+                                    {
+                                        if (controll.MaController == item.MaController)
+                                        {
+                                            <td><span>@controll.TenController</span></td>
+                                        }
+                                    }
+                                    <td>
+                                        <a href="@Url.Action("ChinhSuaTinhNang","LoaiAction",new {@MaAction = item.MaAction })"> Chỉnh sửa</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+
+
+
+

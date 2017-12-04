@@ -1,0 +1,134 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<LoaiXeViewModel>
+
+@{
+    ViewBag.Title = "ChinhSuaLoaiXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    LoaiXeViewModel loaixe = ViewBag.model as LoaiXeViewModel;
+}
+
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang Chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Loại Xe</span>
+            </li>
+        </ul>
+    </div>
+    <h3 class="page-title">
+        Loại Xe
+    </h3>
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách loại xe</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+
+                    @using (Html.BeginForm("ChinhSuaLoaiXe", "LoaiXe"))
+                    {
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Mã loại xe </th>
+                                    <th> Tên loại xe </th>
+                                    <th> Trạng thái </th>
+                                    <th> Chỉnh sửa </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    if (@item.MaLoaiXe == @loaixe.MaLoaiXe)
+                                    {
+                                        <tr>
+
+                                            @Html.Hidden("MaLoaiXe", item.MaLoaiXe)
+                                            <td><span>@item.MaLoaiXe</span></td>
+                                            <td><input type="text" name="TenLoaiXe" class="form-control input-small" value="@item.TenLoaiXe" required="" maxlength="100" /></td>
+                                            <td>
+                                                @if (@item.Dang == true)
+                                                {
+                                                    <p style="margin-left:80px;">
+                                                        <span><input type="checkbox" name="Dang" value="true" checked /></span>
+
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p style="margin-left:80px;">
+                                                        <span><input type="checkbox" name="Dang" value="false" /></span>
+                                                    </p>
+                                                }
+                                            </td>
+                                            <td>
+                                                <input type="submit" value="Lưu" id="Luu" /> ||
+                                                <a href="~/LoaiXe/MenuDanhSachLoaiXe" style="color:red">Trở về</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td><span>@item.MaLoaiXe</span></td>
+                                            <td><span> @item.TenLoaiXe </span></td>
+                                            <td>
+                                                <span>
+                                                    @if (@item.Dang == true)
+                                                    {
+                                                        <span style="margin-left:80px"><input type="checkbox" value="true" checked /></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span style="margin-left:80px"><input type="checkbox" value="false" /></span>
+                                                    }
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Action("ChinhSuaLoaiXe","LoaiXe",new {@MaLoaiXe = item.MaLoaiXe })"> Chỉnh sửa</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>
+<style>
+    #Luu {
+        border: none;
+        background: none;
+        color: blue;
+    }
+</style>
+
+<script>
+    $("input[type='checkbox']").click(function () {
+        $(this).change(function () {
+            if ($(this).is(':checked')) {
+                $(this).val('true');
+            }
+            else {
+                $(this).val('false');
+            }
+        })
+    })
+</script>
+

@@ -1,0 +1,206 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model KhachHangViewModel
+
+@{
+    ViewBag.Title = "ChinhSuaKhachHangThanThiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ChinhSuaKhachHang", "KhachHang"))
+{
+    @Html.Hidden("MaKH", @Model.MaKH)
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Khách hàng</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Khách hàng
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chỉnh sửa thông tin khách hàng</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Người liên hệ
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="NguoiLienHe" data-required="1" class="form-control isEmpty" required="" value="@Model.NguoiLienHe">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Giới tính
+                                        <span class="required" aria-required="true"> </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="radio-list">
+                                            @if (Model.GioiTinh == true)
+                                            {
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="true" checked> Nam
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="false"> Nữ
+                                                </label>
+                                            }
+                                            else
+                                            {
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="true"> Nam
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" name="GioiTinh" value="false" checked> Nữ
+                                                </label>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        CMND
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" value="@Model.CMND" id="inputCMND">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số điện thoại
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SDT" type="text" class="form-control isEmpty" required="" value="@Model.SDT">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Email
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="Email" type="text" class="form-control" value="@Model.Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Địa chỉ
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="DiaChiKH" data-required="1" class="form-control" value="@Model.DiaChiKH">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Giảm giá
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="GiamGia" data-required="1" class="form-control" value="@Model.GiamGia">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Tên công ty
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenCongTy" data-required="1" class="form-control" value="@Model.TenCongTy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        SĐT công ty
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SDTCongTy" type="text" class="form-control" value="@Model.SDTCongTy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Đ.chỉ công ty
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="DiaChiCongTy" type="text" class="form-control" value="@Model.DiaChiCongTy">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Mã số thuế
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="DiaChiCongTy" type="text" class="form-control" value="@Model.MaSoThue">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại khách hàng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        @Html.DropDownList("MaLoaiKH", null, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ghi chú
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea name="GhiChu" class="form-control" rows="3">@Model.GhiChu</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" class="btn green" value="Cập nhật" />
+                                        <a href="/KhachHang/MenuDanhSachKhachHang" class="btn grey-salsa btn-outline">Trở lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+}
+
+

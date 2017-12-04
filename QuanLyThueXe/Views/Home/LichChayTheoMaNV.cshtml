@@ -1,0 +1,136 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<CT_HopDongViewModel>
+@{
+    ViewBag.Title = "LichChayTheoMaNV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<TrangThaiHopDongViewModel> lstTrangThai = ViewBag.TrangThai as IEnumerable<TrangThaiHopDongViewModel>;
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Lịch chạy</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Lịch chạy mỗi nhân viên
+    </h3>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN EXAMPLE TABLE PORTLET-->
+            <div class="portlet light portlet-fit bordered">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-settings font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách lịch chạy</span>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                        <thead>
+                            <tr>
+                                <th width="5%">STT</th>
+                                <th> Lộ trình </th>
+                                <th> Ngày đi</th>
+                                <th> Ngày về</th>
+                                <th> Loại xe</th>
+                                <th> Xe </th>
+                                <th> Tài xế </th>
+                                <th> Phụ xe</th>
+                                <th> Trạng thái HĐ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.SoCTHopDong</td>
+                                    <td><span> @item.LoTrinhs.TenLoTrinh </span></td>
+                                    <td><span> @item.NgayDi.ToString("dd/MM/yyyy  HH:mm:ss")</span></td>
+                                    <td><span> @item.NgayVe.ToString("dd/MM/yyyy")</span></td>
+                                    <td><span> @item.LoaiXes.TenLoaiXe</span></td>
+                                    @if (String.IsNullOrEmpty(item.MaXe))
+                                    {
+                                        <td><span> @item.BienSoXe</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span> @item.Xes.BienSo</span></td>
+                                    }
+                                    @if (String.IsNullOrEmpty(item.MaTaiXe))
+                                    {
+                                        <td><span> @item.TaiXeNgoai</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span> @item.TaiXes.HoTen</span></td>
+                                    }
+                                    @if (!String.IsNullOrEmpty(item.PhuXe))
+                                    {
+                                        <td><span> @item.PhuXes.HoTen</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span></span></td>
+                                    }
+                                    <td>
+                                        @{
+                                            if (item.HopDongs.MaTrangThai == "0")
+                                            {
+                                                foreach (var tt in lstTrangThai)
+                                                {
+                                                    if (tt.MaTrangThai == item.HopDongs.MaTrangThai)
+                                                    {
+                                                        <span class="label label-sm label-primary">
+                                                            @tt.TenTrangThai
+                                                        </span>
+                                                    }
+                                                }
+
+                                            }
+                                            if (item.HopDongs.MaTrangThai == "1")
+                                            {
+                                                foreach (var tt in lstTrangThai)
+                                                {
+                                                    if (tt.MaTrangThai == item.HopDongs.MaTrangThai)
+                                                    {
+                                                        <span class="label label-sm label-warning">
+                                                            @tt.TenTrangThai
+                                                        </span>
+                                                    }
+                                                }
+
+                                            }
+                                            if (item.HopDongs.MaTrangThai == "2")
+                                            {
+                                                foreach (var tt in lstTrangThai)
+                                                {
+                                                    if (tt.MaTrangThai == item.HopDongs.MaTrangThai)
+                                                    {
+                                                        <span class="label label-sm label-danger">
+                                                            @tt.TenTrangThai
+                                                        </span>
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    </td>
+
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+</div>

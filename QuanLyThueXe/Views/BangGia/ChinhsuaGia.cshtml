@@ -1,0 +1,138 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model BangGiaViewModel
+@{
+    ViewBag.Title = "ChinhsuaGia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<LoaiXeViewModel> lstLX = ViewBag.MaLoaiXe as IEnumerable<LoaiXeViewModel>;
+    IEnumerable<KhachHangViewModel> lstKH = ViewBag.MaKH as IEnumerable<KhachHangViewModel>;
+    IEnumerable<LoTrinhViewModel> lstLT = ViewBag.MaLoTrinh as IEnumerable<LoTrinhViewModel>;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("MaBangGia", @Model.MaBangGia)
+    <div class="page-content" style="min-height:1368px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chỉnh sửa thông tin bảng giá</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                @*<div class="form-group">
+                                        <label class="control-label col-md-2">
+                                            Mã bảng giá
+                                            <span class="required" aria-required="true"> </span>
+                                        </label>
+                                        <div class="col-md-8">
+                                            <input name="MaBangGia" type="text" class="form-control" required="" value="@Model.MaBangGia" readonly>
+                                        </div>
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Khách hàng
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-8 ">
+                                        <select name="MaKH" class="form-control isEmpty">
+                                            <option value="@Model.MaKH">@Model.KhachHangs.TenKH</option>
+                                            @foreach (var kh in lstKH)
+                                            {
+                                                <option value="@kh.MaKH">@kh.TenKH</option>
+                                            }
+                                        </select>
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="MaLoTrinh" aria-invalid="false" aria-describedby="select-error">
+                                           <option value="@Model.MaLoTrinh">@Model.LoTrinhs.TenLoTrinh</option>
+                                            @foreach (var lt in lstLT)
+                                            {
+                                                <option value="@lt.MaLoTrinh">@lt.TenLoTrinh</option>
+                                            }
+                                            <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại xe
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-8 ">
+                                        <select name="MaLoaiXe" class="form-control isEmpty">
+                                            <option value="@Model.MaLoaiXe">@Model.LoaiXes.TenLoaiXe</option>
+                                            @foreach (var xe in lstLX)
+                                            {
+                                                <option value="@xe.MaLoaiXe">@xe.TenLoaiXe</option>
+                                            }
+                                        </select>
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Thời gian
+                                        <span class="required" aria-required="true"> </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="ThoiGian" type="text" class="form-control" value="@Model.ThoiGian">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số KM
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SoKM" type="number" class="form-control" value="@Model.SoKM">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Giá
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="number" name="Gia" class="form-control isEmpty" value="@Model.Gia">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <input type="submit" class="btn green" value="Cập nhật" />
+                                            <a href="/BangGia/MenuDanhSachBangGia" class="btn grey-salsa btn-outline">Trở lại</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+}
+
+

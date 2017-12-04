@@ -1,0 +1,88 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model ChiPhiPhatSinhViewModel
+@{
+    ViewBag.Title = "ChinhSuaCPPS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Hidden("MaChiPhi", @Model.MaChiPhi)
+    <div class="page-content" style="min-height:1368px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chỉnh sửa Chi phí phát sinh</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Mã chi phí
+                                        <span class="required" aria-required="true"> </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="MaChiPhi" type="text" class="form-control" required="" value="@Model.MaChiPhi" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Tên chi phí
+                                        <span class="required" aria-required="true"> </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="TenChiPhi" type="text" class="form-control" value="@Model.TenChiPhi">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Phí phát sinh
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="PhiPhatSinh" type="number" class="form-control" value="@Model.PhiPhatSinh">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Mô tả
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="MoTa" class="form-control" value="@Model.MoTa">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <input type="submit" class="btn green" value="Cập nhật" />
+                                            <a href="/CaiDatChung/MenuChiPhiPhatSinh" class="btn grey-salsa btn-outline">Trở lại</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+}
+
+
+

@@ -1,0 +1,114 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model CongTiesViewModel
+
+@{
+    ViewBag.Title = "MenuThemCongTy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="page-content" style="min-height:1368px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Thêm công ty</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Tên công ty
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenCongTy" data-required="1" class="form-control isEmpty" data-Name="Tên công ty" required="">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Người Liên Hệ
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="NguoiLienHe" data-required="1" data-Name="Người liên hệ" class="form-control isEmpty">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Địa chỉ
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="DiaChi" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số điện thoại
+                                        <span class="required" aria-required="true"> * </span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <input name="SDT" type="text" class="form-control isEmpty" data-Name="Số điện thoại" required="">
+                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                    </div>
+                                    <label class="control-label col-md-2">
+                                        Fax
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-2">
+                                        <input name="Fax" type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Email
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="Email" type="email" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ghi chú
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea name="GhiChu" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" class="btn green" value="Thêm công ty" />
+                                        <a href="/CongTy/MenuDanhSachCongTy" class="btn grey-salsa btn-outline">Trở về</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,278 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model CT_HopDongViewModel
+@{
+    ViewBag.Title = "ChiTietDieuPhoiTaiXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<NhanVienViewModel> TaiXe = ViewBag.TaiXe as IEnumerable<NhanVienViewModel>;
+    IEnumerable<NhanVienViewModel> PhuXe = ViewBag.PhuXe as IEnumerable<NhanVienViewModel>;
+}
+@using (Html.BeginForm())
+{
+    @Html.Hidden("SoCTHopDong", Model.SoCTHopDong)
+    @Html.Hidden("MaTaiXeCu",Model.MaTaiXe)
+    @Html.Hidden("MaPhuXeCu",Model.PhuXe)
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Điều phối</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Điều phối
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Điều phối xe</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số hợp đồng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenKH" data-required="1" class="form-control" required="" value="@Model.SoHopDong" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" required="" value="@Model.LoTrinhs.TenLoTrinh" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày đi
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SDT" type="text" class="form-control" required="" value="@Model.NgayDi.ToString("dd/MM/yyyy  HH:mm:ss")" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày về
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="Email" type="text" class="form-control" value="@Model.NgayVe.ToString("dd/MM/yyyy  HH:mm:ss")" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại xe
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="DiaChiKH" data-required="1" class="form-control" value="@Model.LoaiXes.TenLoaiXe" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="ChonTaiXe">
+                                    <label class="control-label col-md-2">
+                                        Chọn tài xế
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaCongTy" id="taixe_list" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            <optgroup label="">
+                                                @if (!String.IsNullOrEmpty(Model.TaiXeNgoai))
+                                                {
+                                                    <option value="TXN">Tài xế ngoài</option>
+                                                    <option value="DETRA">Detra</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="DETRA">Detra</option>
+                                                    <option value="TXN">Tài xế ngoài</option>
+                                                }
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="TaiXe">
+                                    <label class="control-label col-md-2">
+                                        Tài xế
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select id="taixe_list" name="MaTaiXe" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            @{
+                                                if (Model.MaTaiXe != null)
+                                                {
+                                                    foreach (var tx in TaiXe)
+                                                    {
+                                                        if (tx.MaNV == Model.MaTaiXe)
+                                                        {
+                                                            <option value="@tx.MaNV">@tx.HoTen</option>
+                                                        }
+                                                    }
+                                                    <optgroup label="">
+                                                        <option value="">Bỏ chọn</option>
+                                                        @foreach (var tx in TaiXe)
+                                                        {
+                                                            if (Model.MaTaiXe != tx.MaNV)
+                                                            {
+                                                                if (tx.Status == "1")
+                                                                {
+                                                                    <option value="@tx.MaNV">@tx.HoTen (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@tx.MaNV">@tx.HoTen</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                                else
+                                                {
+                                                    <option></option>
+                                                    <optgroup label="">
+                                                        @foreach (var tx in TaiXe)
+                                                        {
+                                                            if (Model.MaTaiXe != tx.MaNV)
+                                                            {
+                                                                if (tx.Status == "1")
+                                                                {
+                                                                    <option value="@tx.MaNV">@tx.HoTen (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@tx.MaNV">@tx.HoTen</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="TaiXeNgoai">
+                                    <label class="control-label col-md-2">
+                                        Tài xế ngoài
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="TaiXeNgoai" type="text" class="form-control" placeholder="nhập tên,sdt tài xế..." value="@Model.TaiXeNgoai">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Phụ xe
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select id="phuxe_list" name="PhuXe" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            @{
+                                                if (Model.PhuXe != null)
+                                                {
+                                                    foreach (var px in PhuXe)
+                                                    {
+                                                        if (px.MaNV == Model.PhuXe)
+                                                        {
+                                                            <option value="@px.MaNV">@px.HoTen</option>
+                                                        }
+                                                    }
+                                                    <optgroup label="">
+                                                        <option value="">Bỏ chọn</option>
+                                                        @foreach (var px in PhuXe)
+                                                        {
+                                                            if (Model.PhuXe != px.MaNV)
+                                                            {
+                                                                if (px.Status == "1")
+                                                                {
+                                                                    <option value="@px.MaNV">@px.HoTen (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@px.MaNV">@px.HoTen</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                                else
+                                                {
+                                                    <option></option>
+                                                    <optgroup label="">
+                                                        @foreach (var px in PhuXe)
+                                                        {
+                                                            if (Model.PhuXe != px.MaNV)
+                                                            {
+                                                                if (px.Status == "1")
+                                                                {
+                                                                    <option value="@px.MaNV">@px.HoTen (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@px.MaNV">@px.HoTen</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Hướng dẫn viên
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="HuongDanVien" data-required="1" class="form-control" value="@Model.HuongDanVien">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ghi chú
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" rows="3" name="DiaDiemDon" readonly="">@Model.GhiChu</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <input type="submit" class="btn green" value="Cập nhật" />
+                                    <a href="/DieuPhoi/MenuDieuPhoiTaiXe" class="btn btn-default">Trở lại</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+                                                }
+

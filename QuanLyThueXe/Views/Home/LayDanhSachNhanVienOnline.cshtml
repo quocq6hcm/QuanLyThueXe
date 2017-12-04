@@ -1,0 +1,58 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model List<TaiKhoanViewModel>
+@if (Model != null)
+{
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="javascript:;" data-target="#quick_sidebar_tab_1" data-toggle="tab">
+                Danh sách tài khoản
+                <span class="badge badge-danger">2</span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active page-quick-sidebar-chat" id="quick_sidebar_tab_1">
+            <div class="page-quick-sidebar-chat-users" data-rail-color="#ddd" data-wrapper-class="page-quick-sidebar-list">
+                <h3 class="list-heading">Online</h3>
+                <ul class="media-list list-items">
+                    @foreach (var onl in Model)
+                {
+                    if (onl.Online == true)
+                    {
+                            <li class="media">
+                                <div class="media-status">
+                                    <span class="badge badge-success"></span>
+                                </div>
+                                <img class="media-object" src="@Url.Content("~/Content/HinhNV/"+onl.NhanViens.HinhAnh)" alt="...">
+                                <div class="media-body">
+                                    <h4 class="media-heading">@onl.NhanViens.HoTen</h4>
+                                    <div class="media-heading-sub">@onl.NhanViens.LoaiNhanViens.TenLoaiNV</div>
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+                <h3 class="list-heading">Offline</h3>
+                <ul class="media-list list-items">
+                    @foreach (var onl in Model)
+                {
+                    if (onl.Online == false)
+                    {
+                            <li class="media">
+                                <div class="media-status">
+                                    <span class="badge badge-success"></span>
+                                </div>
+                                <img class="media-object" src="@Url.Content("~/Content/HinhNV/"+onl.NhanViens.HinhAnh)" alt="...">
+                                <div class="media-body">
+                                    <h4 class="media-heading">@onl.NhanViens.HoTen</h4>
+                                    <div class="media-heading-sub">@onl.NhanViens.LoaiNhanViens.TenLoaiNV</div>
+                                    @*<div class="media-heading-small"> Last seen 03:10 AM </div>*@
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}

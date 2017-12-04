@@ -1,0 +1,78 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model List<TaiKhoanViewModel>
+@{
+    ViewBag.Title = "MenuDanhSachTaiKhoan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Tài khoản</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Tài khoản
+    </h3>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    @*<div class="portlet-body col-md-5 pull-right" style="padding-top:25px;float:right">
+                            <div class="form-group col-md-1">
+                                <a href="@Url.Action("MenuThemNV", "NhanVien")" class="btn green" style="margin-left:150px">
+                                    Thêm nhân viên
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>*@
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách tài khoản</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr role="row">
+                                    <th> Mã NV</th>
+                                    <th> Tài khoản</th>
+                                    <th> Họ Tên </th>
+                                    <th> Quyền </th>
+                                    <th> Reset mật khẩu </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("Details", "NhanVien", new { manv= item.MaNV})"> @item.MaNV </a>
+                                        </td>
+                                        <td> 
+                                            <a href="@Url.Action("ChiTietTK", "TaiKhoan", new { tk = item.TaiKhoanNV })"> @item.TaiKhoanNV </a>
+                                         </td>
+                                        <td> @item.NhanViens.HoTen </td>
+                                        <td> @item.Quyens.TenQuyen </td>
+                                        <td> <a href="@Url.Action("ResetPass", "TaiKhoan",new {@taiKhoan = item.TaiKhoanNV })">Reset (Mặc định: 123456)</a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>

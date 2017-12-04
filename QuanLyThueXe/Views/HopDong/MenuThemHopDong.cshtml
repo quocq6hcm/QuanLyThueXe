@@ -1,0 +1,827 @@
+﻿@using QuanLyThueXe.ViewModels;
+@{
+    ViewBag.Title = "MenuThemHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<LoTrinhViewModel> loTrinh = ViewBag.LoTrinh as List<LoTrinhViewModel>;
+    List<LoaiXeViewModel> loaiXe = ViewBag.LoaiXe as List<LoaiXeViewModel>;
+    List<KhachHangViewModel> khachHang = ViewBag.KhachHang as List<KhachHangViewModel>;
+    BangGiaViewModel bangGia = ViewBag.BangGia as BangGiaViewModel;
+    List<ChiPhiPhatSinhViewModel> lstCTCPPS = ViewBag.CTCPPS as List<ChiPhiPhatSinhViewModel>;
+}
+<script src="~/Scripts/TuyenDuongMoi.js"></script>
+<div class="page-content" style="min-height:1508px">
+    <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN THEME PANEL -->
+    <!-- END THEME PANEL -->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Hợp đồng</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h3 class="page-title">
+        Hợp đồng
+    </h3>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light bordered" id="form_wizard_1">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class=" icon-layers font-red" style="font-size:20px"></i>
+                        <span class="caption-subject font-red bold uppercase" style="font-size:25px">
+                            Thêm hợp đồng
+                            <span class="step-title"> - Bước 1 trong 3 </span>
+                        </span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-cloud-upload"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-wrench"></i>
+                        </a>
+                        <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
+                            <i class="icon-trash"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    @*<form action="MenuThemHopDong" class="form-horizontal" id="submit_form" method="POST" novalidate="novalidate">*@
+                    @using (Html.BeginForm("MenuThemHopDong", "HopDong", FormMethod.Post, new { @id = "submit_form", @class = "form-horizontal", @runat = "server" }))
+                    {
+                        //using (Ajax.BeginForm("MenuThemHopDong", "HopDong", new AjaxOptions { HttpMethod = "Get", InsertionMode = InsertionMode.Replace, OnSuccess = "Successs" }, new { @id = "Load" }))
+                        {
+                            <div class="form-wizard">
+                                <div class="form-body">
+                                    <ul class="nav nav-pills nav-justified steps">
+                                        <li class="active">
+                                            <a href="#tab1" data-toggle="tab" class="step" aria-expanded="true">
+                                                <span class="number"> 1 </span>
+                                                <span class="desc">
+                                                    <i class="fa fa-check"></i> Khách hàng
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#tab2" data-toggle="tab" class="step">
+                                                <span class="number"> 2 </span>
+                                                <span class="desc">
+                                                    <i class="fa fa-check"></i> Lộ trình
+                                                </span>
+                                            </a>
+                                        </li>
+                                        @*<li>
+                                            <a href="#tab3" data-toggle="tab" class="step active">
+                                            <span class="number"> 3 </span>
+                                            <span class="desc">
+                                            <i class="fa fa-check"></i> Thông tin chi tiết
+                                            </span>
+                                            </a>
+                                            </li>*@
+                                        <li>
+                                            <a href="#tab4" data-toggle="tab" class="step">
+                                                <span class="number"> 3 </span>
+                                                <span class="desc">
+                                                    <i class="fa fa-check"></i> Xác nhận
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div id="bar" class="progress progress-striped" role="progressbar">
+                                        <div class="progress-bar progress-bar-success" style="width: 25%;"> </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="alert alert-danger display-none">
+                                            <button class="close" data-dismiss="alert"></button>Bạn có một số lỗi! Làm ơn kiểm tra lại.
+                                        </div>
+                                        <div class="alert alert-success display-none">
+                                            <button class="close" data-dismiss="alert"></button> Xác nhận thành công!
+                                        </div>
+                                        <div class="tab-pane active" id="tab1">
+                                            <h3 class="block">Thông tin khách hàng</h3>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">
+                                                    Khách hàng
+                                                    <span class="required" aria-required="true"></span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <select name="MaKH" id="khachhang_list" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                        <optgroup label="">
+                                                            <option value="Detra">Khách lẻ</option>
+                                                            @foreach (var kh in khachHang)
+                                                            {
+                                                                if (kh.MaKH != "DETRA")
+                                                                {
+                                                                    <option value="@kh.MaKH">@kh.TenKH</option>
+                                                                }
+                                                            }
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="Info-KhachHang">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        Tên khách hàng
+                                                        <span class="required" aria-required="true"> * </span>
+                                                    </label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control" name="TenKH">
+                                                        <span class="help-block"> Nhập tên khách hàng </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        Giới tính
+                                                        <span class="required" aria-required="true">  </span>
+                                                    </label>
+                                                    <div class="col-md-4">
+                                                        <div class="radio-list">
+                                                            <label>
+                                                                <span><input type="radio" name="GioiTinh" value="true" data-title="Nam" checked></span> Nam
+                                                            </label>
+                                                            <label>
+                                                                <span><input type="radio" name="GioiTinh" value="false" data-title="Nữ"></span> Nữ
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        Số điện thoại
+                                                        <span class="required" aria-required="true"> * </span>
+                                                    </label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control" name="SDT">
+                                                        <span class="help-block"> Nhập số điện thoại </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        Email
+                                                        <span class="required" aria-required="true"> </span>
+                                                    </label>
+                                                    <div class="col-md-4">
+                                                        <input type="text" class="form-control" name="Email">
+                                                        <span class="help-block"> Nhập email </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">
+                                                        Địa chỉ
+                                                        <span class="required" aria-required="true"></span>
+                                                    </label>
+                                                    <div class="col-md-4">
+                                                        <textarea class="form-control" rows="3" name="DiaChiKH"></textarea>
+                                                        <span class="help-block"> Nhập địa chỉ </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="tab2">
+                                            <h3 class="block">Thiết lập thông tin</h3>
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#home" id="tab-home">Tuyến đường có sẵn</a></li>
+                                                <li><a data-toggle="tab" href="#menu1" id="tab-menu1">Tuyến đường khác</a></li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div id="home" class="tab-pane fade in active">
+                                                    <h3>Thông tin lộ trình</h3>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Tuyến đi
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div id="dropKhachHang">
+                                                                <select id="country_list" name="MaLoTrinh" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                                    <optgroup label="">
+                                                                        <option></option>
+                                                                        @if (loTrinh != null)
+                                                                        {
+                                                                            foreach (var lt in loTrinh)
+                                                                            {
+                                                                                <option value="@lt.MaLoTrinh">@lt.TenLoTrinh</option>
+                                                                            }
+                                                                        }
+                                                                    </optgroup>
+                                                                </select>
+                                                            </div>
+                                                            @*<span class="help-block"> Chọn lộ trình </span>*@
+                                                            <input type="hidden" id="ThoiGianTuyenDi" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Loại xe
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div id="DropLoaiXe">
+                                                                <select name="MaLoaiXe" class="Loaixe_list form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                                                    <option></option>
+                                                                    @foreach (var lx in loaiXe)
+                                                                    {
+                                                                        <option value="@lx.MaLoaiXe">@lx.TenLoaiXe</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                            @*<span class="help-block"> Chọn loại xe </span>*@
+                                                        </div>
+                                                        <label class="control-label col-md-2">
+                                                            Số lượng
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-2">
+                                                            <input type="text" class="form-control SoLuong" name="SLuong" value="1" tabindex="-1">
+                                                            @*<span class="help-block"> Nhập số lượng xe </span>*@
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn blue" id="add">Thêm</button>
+                                                        </div>
+                                                        <input type="hidden" id="LoaiXe" name="LoaiXe" />
+                                                        <input type="hidden" id="SoLuong" class="form-control" name="strSoLuong">
+                                                        <input type="hidden" id="TenLoaiXe" name="TenLoaiXe" />
+                                                    </div>
+                                                    <!-------------------------------------------------------------------------------------->
+                                                    <div id="add-routing">
+
+
+                                                    </div>
+                                                    <!-------------------------------------------------------------------------------------->
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Ngày đi
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" id="NgayDi" name="NgayDi" />
+                                                        </div>
+                                                        <label class="control-label col-md-2">
+                                                            Giờ đón
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <div class="input-group col-md-11">
+                                                                <input type="text" class="form-control timepicker timepicker-24" name="GioDon" id="GioDon">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Ngày về
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control form-control-inline input-medium" size="16" type="text" name="NgayVe" id="NgayVe" readonly />
+                                                            <input class="form-control form-control-inline input-medium" size="16" type="hidden" value="" name="NgayVe" />
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="iNgayLech" id="iNgayLech" value="" />
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Số lượng người
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" name="SoLuongNguoi" value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Địa điểm đón
+                                                                    <span class="required" aria-required="true">*</span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control" rows="3" cols="50" name="DiaDiemDon"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6" style="margin-left: 29px;">
+                                                                <label class="control-label col-md-4">
+                                                                    Ghi chú
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control" rows="3" name="GhiChu"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h4>Thông tin giá</h4>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Giảm giá
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" id="GiamGia" name="GiamGia" value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Loại chi phí
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <select id="chiphi_list" name="MaChiPhi" class="ChiPhiList form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true" data-cp="0">
+                                                                <optgroup label="">
+                                                                    <option value="">Chọn phí phát sinh</option>
+                                                                    @foreach (var cp in lstCTCPPS)
+                                                                    {
+                                                                        <option value="@cp.MaChiPhi" data-gia="@cp.PhiPhatSinh">@cp.TenChiPhi</option>
+                                                                    }
+                                                                </optgroup>
+                                                            </select>
+                                                        </div>
+                                                        <label class="control-label col-md-1">
+                                                            Chi phí:
+                                                            <span class="required" aria-required="true">*</span>
+                                                        </label>
+                                                        <div class="col-md-2">
+                                                            <input name="SoLuong" type="text" class="form-control SoLuongCP" value="0" id="cp-0">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn blue" id="add-CP">Thêm</button>
+                                                        </div>
+                                                        <input type="hidden" id="ChiPhi" name="strMaChiPhi" value="" />
+                                                        <input type="hidden" id="SoLuongCP" name="strSoLuongCP" value="" />
+                                                    </div>
+                                                    <div id="add-CPPS">
+
+                                                    </div>
+                                                    <div id="BangGia" style="display:none">
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Giá niêm yết</label>
+                                                            <div class="col-md-4">
+                                                                <input name="GiaNiemYet" type="text" class="form-control" placeholder="" readonly="" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Thời gian ước tính</label>
+                                                            <div class="col-md-4">
+                                                                <input name="ThoiGian" type="text" class="form-control" placeholder="" readonly="" value="">
+                                                            </div>
+                                                            <label class="col-md-2 control-label">Đoạn đường ước tính</label>
+                                                            <div class="col-md-4">
+                                                                <input name="SoKM" type="text" class="form-control" placeholder="" readonly="" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-2 control-label">Tổng tiền</label>
+                                                            <div class="col-md-4">
+                                                                <input name="SoTienConLai" type="text" class="form-control" placeholder="" readonly="" value="">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="menu1" class="tab-pane fade" style="display:none;">
+                                                    <h3>Thông tin lộ trình</h3>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Tên lộ trình
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control isEmpty" data-Name="Tên tuyến đường" name="TenLoTrinhMoi">
+                                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Giờ ước tính(Giờ):
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group col-md-12">
+                                                                        <input type="text" class="form-control isEmpty" data-Name="Giờ ước tính" name="GioUocTinh" id="GioUocTinh" value="0">
+                                                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Loại xe
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <select name="MaLoaiXeMoi" class="MaLoaiXeMoi bs-select form-control" data-live-search="true" data-size="8">
+                                                                        @foreach (var lx in loaiXe)
+                                                                        {
+                                                                            <option value="@lx.MaLoaiXe">@lx.TenLoaiXe</option>
+                                                                        }
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-2">
+                                                                    Số lượng
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-2">
+                                                                    <input type="text" class="form-control SoLuongMoi isEmpty" name="SLuong" value="1" tabindex="-1">
+                                                                </div>
+                                                                <label class="control-label col-md-2">
+                                                                    Giá
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-4">
+                                                                    <input type="text" class="form-control GiaXeMoi isEmpty" data-Name="Giá xe" name="GiaXeMoi" value="0" tabindex="-1">
+                                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <button type="button" class="btn blue" id="add-moi">Thêm</button>
+                                                                </div>
+                                                                <input type="hidden" id="strLoaiXeMoi" name="strLoaiXeMoi" />
+                                                                <input type="hidden" id="StrSoLuongXeMoi" class="form-control" name="StrSoLuongXeMoi">
+                                                                <input type="hidden" id="StrGiaXeMoi" class="form-control" name="StrGiaXeMoi">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-------------------------------------------------------------------------------------->
+                                                    <div id="add-routingmoi">
+
+
+                                                    </div>
+                                                    <!-------------------------------------------------------------------------------------->
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Ngày đi
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="form-group col-md-8">
+                                                                    <input class="form-control form-control-inline input-medium date-picker isEmpty" data-Name="Ngày đi" size="16" type="text" value="" id="NgayDiMoi" name="NgayDiMoi" />
+                                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-3">
+                                                                    Giờ đón
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group col-md-12" style="margin-left: -25px;">
+                                                                        <input type="text" class="form-control timepicker timepicker-24 isEmpty" data-Name="Giờ đón" name="GioDonMoi" id="GioDonMoi">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Ngày về
+                                                                    <span class="required" aria-required="true"> * </span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input class="form-control form-control-inline input-medium" data-Name="Ngày về" size="16" type="text" name="NgayVeMoi" id="NgayVeMoi" readonly />
+                                                                    <input class="form-control form-control-inline input-medium" data-Name="Ngày về" size="16" type="hidden" value="" name="NgayVeMoi" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Số lượng người
+                                                                    <span class="required" aria-required="true"></span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <input type="text" class="form-control" name="SoLuongNguoiMoi" value="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Địa điểm đón
+                                                                    <span class="required" aria-required="true">*</span>
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control isEmpty" data-Name="Địa điểm đón" rows="3" cols="50" name="DiaDiemMoi"></textarea>
+                                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-md-6">
+                                                                <label class="control-label col-md-4">
+                                                                    Ghi chú
+                                                                </label>
+                                                                <div class="col-md-8">
+                                                                    <textarea class="form-control" rows="3" name="GhiChuMoi"></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <h4>Thông tin giá</h4>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            Gía niêm yết
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input name="GiaNiemYetMoi" type="text" class="form-control" placeholder="" readonly="" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Giảm giá
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input type="text" class="form-control" id="GiamGiaMoi" name="GiamGiaMoi" value="0">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label col-md-2">
+                                                            Loại chi phí
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <select name="MaChiPhiMoi" class="ChiPhiListMoi bs-select form-control" data-live-search="true" data-size="8" data-cpmoi="0">
+                                                                <option value="">Chọn phí phát sinh</option>
+                                                                @foreach (var cp in lstCTCPPS)
+                                                                {
+                                                                    <option value="@cp.MaChiPhi" data-gia="@cp.PhiPhatSinh">@cp.TenChiPhi</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                        <label class="control-label col-md-1">
+                                                            Chi phí
+                                                            <span class="required" aria-required="true"></span>
+                                                        </label>
+                                                        <div class="col-md-2">
+                                                            <input name="SoLuongMoi" type="text" class="form-control SoLuongCPMoi" value="" id="cpmoi-0">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn blue" id="add-CPMoi">Thêm</button>
+                                                        </div>
+                                                        <input type="hidden" id="strMaChiPhiMoi" name="strMaChiPhiMoi" value="" />
+                                                        <input type="hidden" id="strSoLuongCPMoi" name="strSoLuongCPMoi" value="" />
+                                                    </div>
+                                                    <div id="add-CPPSMoi">
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">Thời gian</label>
+                                                        <div class="col-md-4">
+                                                            <input name="ThoiGianMoiDisplay" type="text" class="form-control" placeholder="" readonly="" value="0">
+                                                            <input id="ThoiGianMoi" name="ThoiGianMoi" type="hidden" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            Tổng tiền
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <div class="col-md-4">
+                                                            <input name="TongTienMoi" type="text" class="form-control" readonly="" placeholder="" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="tab-pane" id="tab3">
+                                            <h3 class="block">Thông tin chi tiết </h3>
+
+                                            </div>*@
+                                        <div class="tab-pane" id="tab4">
+                                            <h3 class="block">Xác nhận hợp đồng</h3>
+                                            <h4 class="form-section">Thông tin khách hàng</h4>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Khách hàng</label>
+                                                <div class="col-md-4">
+                                                    <p class="form-control-static" data-display="MaKH"> </p>
+                                                </div>
+                                            </div>
+                                            <div id="detail-khachhang">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Tên khách hàng:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="TenKH"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Giới tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GioiTinh"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Số điện thoại:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="SDT"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Email:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="Email"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">Địa chỉ:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="DiaChiKH"> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="form-section">Thông tin lộ trình</h4>
+                                            <div id="TuyenDuongMacDinh">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Tuyến đi:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="MaLoTrinh"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Loại xe:</label>
+                                                    <div class="col-md-4 loaiXeDisplay">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Ngày đi:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="NgayDi"> </p>
+                                                    </div>
+                                                    <label class="control-label col-md-2">Giờ đón:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GioDon"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Ngày về:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="NgayVe"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Giảm giá:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GiamGia"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Địa điểm đón:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="DiaDiemDon"> </p>
+                                                    </div>
+                                                    <label class="control-label col-md-2">Ghi chú:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GhiChu"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Thời gian dự tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="ThoiGian"> </p>
+                                                    </div>
+                                                    <label class="control-label col-md-2">Số KM dự tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="SoKM"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Giá dự tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="SoTienConLai"> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="TuyenDuongMoi" style="display:none">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Tuyến đi:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" id="TenLoTrinhMoi" data-display="TenLoTrinhMoi"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Loại xe:</label>
+                                                    <div class="col-md-4 loaiXeMoiDisplay">
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Ngày đi:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="NgayDiMoi"> </p>
+                                                    </div>
+                                                    <label class="control-label col-md-2">Giờ đón:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GioDonMoi"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Ngày về:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="NgayVeMoi"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Giảm giá:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GiamGiaMoi"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Địa điểm đón:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="DiaDiemMoi"> </p>
+                                                    </div>
+                                                    <label class="control-label col-md-2">Ghi chú:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="GhiChuMoi"> </p>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Thời gian dự tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="ThoiGianMoiDisplay"> </p>
+                                                    </div>
+                                                    @*<label class="control-label col-md-2">Số KM dự tính:</label>
+                                                        <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="SoKM"> </p>
+                                                        </div>*@
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">Giá dự tính:</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control-static" data-display="TongTienMoi"> </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <div id="btnTuyenDuongMacDinh">
+                                                <a href="javascript:;" class="btn default button-previous disabled" style="display: none;">
+                                                    <i class="fa fa-angle-left"></i> Trở lại
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-outline green button-next">
+                                                    Tiếp tục
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn green button-submit" id="submit" style="display: none;">
+                                                    Xác nhận
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            </div>
+                                            @*<div id="btnTuyenDuongMoi" style="display:none;">
+                                                <a href="javascript:;" class="btn default button-previous disabled" style="display: none;">
+                                                    <i class="fa fa-angle-left"></i> Trở lại
+                                                </a>
+                                                <a href="javascript:;" class="btn btn-outline green button-next" id="btnnext">
+                                                    Tiếp tục
+                                                    <i class="fa fa-angle-right"></i>
+                                                </a>
+                                                <a href="javascript:;" class="btn green button-submit" id="submit" style="display: none;">
+                                                    Xác nhận
+                                                    <i class="fa fa-check"></i>
+                                                </a>
+                                            </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    @*</form>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .col-md-3 {
+        width: 32%;
+    }
+</style>

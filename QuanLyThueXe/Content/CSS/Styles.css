@@ -1,0 +1,64 @@
+﻿/*-------------------------Layout----------------------*/
+h3.page-title, .page-bar{
+    display:none;
+}
+/*-------------------------End layout----------------------*/
+/*-------------------------Hợp đồng----------------------*/
+#HopDong {
+    background: #fff;
+}
+
+.invoice .invoice-block {
+    text-align: right;
+}
+
+#Tittle-HopDong {
+    text-align:center;
+    font-family:sans-serif;
+}
+
+#Tittle-HopDong .hopdong,#Tittle-HopDong .sohopdong{
+    font-weight:bold;
+    font-size:20px;
+}
+
+#info-KH .ten-kh{
+   font-weight:bold;
+}
+#info-KH .ten-kh,#info-KH .ten-cty{
+    text-transform:uppercase;
+}
+#tb-hopdong th,#tb-hopdong td{
+    text-align:center;
+}
+#tb-hopdong .right{
+    text-align:right;
+}
+/*-------------------------End hợp đồng-----------------*/
+/*-------------------------Loại KH----------------------*/
+#AddLoaiKH{
+    color:#0094ff; 
+    padding-top:9px;
+}
+ #AddLoaiKH:hover{
+    color:black;
+}
+
+/*-------------------------End Loại KH-----------------*/
+
+/*-----------------------Nhân viên-----------------*/
+#DelNV{
+    color: green;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/*-----------------------End nhân viên- -----------*/

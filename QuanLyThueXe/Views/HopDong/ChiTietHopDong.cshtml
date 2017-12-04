@@ -1,0 +1,271 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model HopDongViewModel
+@{
+    ViewBag.Title = "ChiTietHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal tongtien = 0;
+    CongTiesViewModel ct = ViewBag.CongTy as CongTiesViewModel;
+    IEnumerable<Groupby_CT_HopDongViewModel> lstCTHD = ViewBag.CTHD as IEnumerable<Groupby_CT_HopDongViewModel>;
+    IEnumerable<ChiPhiPhatSinhViewModel> lstChiPhi = ViewBag.ChiPhi as IEnumerable<ChiPhiPhatSinhViewModel>;
+    IEnumerable<LoaiXeViewModel> lstLoaiXe = ViewBag.LoaiXe as IEnumerable<LoaiXeViewModel>;
+    IEnumerable<ChiTietChiPhiPhatSinhViewModel> lstCTCPPS = ViewBag.CTCPPS as IEnumerable<ChiTietChiPhiPhatSinhViewModel>;
+}
+<div class="page-content" style="min-height:1350px" id="HopDong">
+    <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN THEME PANEL -->
+    <!-- END THEME PANEL -->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Hợp đồng</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h3 class="page-title">
+        @*Hợp đồng
+            <small>invoice sample</small>*@
+    </h3>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="invoice">
+        <div class="row invoice-logo">
+            <div class="col-xs-3 col-xs-offset-1 invoice-logo-space">
+                <img src="~/Content/Logo/logo-detra.png" class="img-responsive" alt="" />
+            </div>
+            <div class="col-xs-8">
+                <ul class="list-unstyled">
+                    <li> @ct.TenCongTy (bên cho thuê)</li>
+                    <li> Địa chỉ:@ct.DiaChi</li>
+                    <li> Điện thoại: @ct.SDT       <span style="margin-left:50px;">Fax: @ct.Fax</span></li>
+                    <li> Mã số thuế: @ct.MaSoThue</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div id="Tittle-HopDong">
+                <ul class="list-unstyled">
+                    <li class="hopdong"><strong>HỢP ĐỒNG CHO THUÊ XE</strong></li>
+                    <li class="sohopdong"><strong>Số: @Model.SoHopDong </strong></li>
+                    <li><em>ngày @Model.NgayLapHD.Value.ToString("dd") tháng @Model.NgayLapHD.Value.ToString("MM") năm @Model.NgayLapHD.Value.ToString("yyyy")</em></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="info-KH">
+                <h3><strong>KHÁCH HÀNG</strong></h3>
+                @if (String.IsNullOrEmpty(Model.KhachHangs.TenCongTy))
+                {
+                    <ul class="list-unstyled">
+                        <li class="ten-kh"> @Model.KhachHangs.TenKH</li>
+                        <li> SDT: @Model.KhachHangs.SDT </li>
+                        <li> Địa chỉ: @Model.KhachHangs.DiaChiKH </li>
+                        <li> Mã số thuế: @Model.KhachHangs.MaSoThue </li>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="list-unstyled">
+                        <li class="ten-kh">@Model.KhachHangs.NguoiLienHe - @Model.KhachHangs.SDT</li>
+                        <li class="ten-cty">@Model.KhachHangs.TenCongTy</li>
+                        <li> Địa chỉ: @Model.KhachHangs.DiaChiCongTy </li>
+                        <li> Điện thoại: @Model.KhachHangs.SDTCongTy </li>
+                        <li> Fax: @Model.KhachHangs.SDTCongTy </li>
+                        <li> Mã số thuế: @Model.KhachHangs.MaSoThue </li>
+                    </ul>
+                }
+            </div>
+            <div class="col-xs-12 invoice-block">
+                Đơn vị tính: VNĐ
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 table table-responsive">
+                <table class="table table-bordered table-striped table-condensed flip-content" id="tb-hopdong">
+                    <thead class="flip-content">
+                        <tr>
+                            <th width="10%"> Ngày đi </th>
+                            <th width="10%"> Ngày về </th>
+                            <th width="20%"> Lộ trình </th>
+                            <th width="10%"> Giờ đón </th>
+                            <th width="20%"> Địa điểm đón </th>
+                            <th width="11%"> Loại xe </th>
+                            <th width="14%"> Đơn giá <br /> (VNĐ)</th>
+                            <th width="5%">Số lượng</th>
+                            <th width="16%"> Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cthd in lstCTHD)
+                        {
+                            <tr>
+                                <td>@cthd.NgayDi.ToString("dd/MM/yyyy")</td>
+                                <td>@cthd.NgayVe.ToString("dd/MM/yyyy")</td>
+                                <td>@Model.LoTrinhs.TenLoTrinh</td>
+                                <td>
+                                    @if (@cthd.GioDon != null)
+                                    {
+                                        @cthd.GioDon.Value.ToString("hh:mm")
+                                    }
+                                </td>
+                                <td>@cthd.DiaDiemDon</td>
+                                <td>
+                                    @foreach (var lx in lstLoaiXe)
+                                    {
+                                        if (lx.MaLoaiXe == cthd.MaLoaiXe)
+                                        {
+                                            Write(lx.TenLoaiXe);
+                                        }
+                                    }
+                                </td>
+                                <td class="right">@cthd.Gia.Value.ToString("#,##") </td>
+                                <td>@cthd.SoLuong </td>
+                                <td class="right">
+                                    @{
+                                        decimal gia = Decimal.Parse(cthd.Gia.ToString());
+                                        decimal sl = Decimal.Parse(cthd.SoLuong.ToString());
+                                        decimal tong = gia * sl;
+                                        if (Model.KhachHangs.GiamGia.ToString() != null)
+                                        {
+                                            decimal giamgiakh = Decimal.Parse(Model.KhachHangs.GiamGia.ToString());
+                                            tongtien = tongtien + tong - giamgiakh;
+                                        }
+                                    }
+                                    @tong.ToString("#,##")
+                                </td>
+                            </tr>
+                                        }
+
+                        @if (lstCTCPPS != null)
+                        {
+                            foreach (var ctiet in lstCTCPPS)
+                            {
+                                foreach (var cp in lstChiPhi)
+                                {
+                                    if (cp.MaChiPhi == ctiet.MaChiPhi)
+                                    {
+                                        <tr>
+                                            <th colspan="2"><strong>@cp.TenChiPhi</strong></th>
+                                            <th colspan="4"><strong>@cp.MoTa</strong></th>
+                                            <th class="right">@ctiet.DonGia.Value.ToString("#,##")</th>
+                                            <th>@ctiet.SoLuong</th>
+                                            <th class="right">
+                                                <strong>
+                                                    @{
+                                                        decimal chiPhi = decimal.Parse(ctiet.DonGia.Value.ToString());
+                                                        int soLuong = int.Parse(ctiet.SoLuong.ToString());
+                                                        decimal tongChiPhi = chiPhi * soLuong;
+                                                        tongtien = tongtien + chiPhi * soLuong;
+                                                    }
+                                                    @tongChiPhi.ToString("#,##")
+                                                </strong>
+                                            </th>
+                                        </tr>
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        @*<tr>
+                                                                <th colspan="8" class="right"><strong>TỔNG:</strong></th>
+                                                                <th class="right"><strong>@tongtien.ToString("#,##")</strong></th>
+                                                            </tr>*@
+                                                        <tr>
+                                                            <th colspan="8" class="right"><strong>Giảm giá:</strong></th>
+                                                            <th class="right">
+                                                                <strong>
+                                                                    @if (int.Parse(Model.GiamGia.Value.ToString()) != 0)
+                                                                    {
+                                                                        decimal giamGia = decimal.Parse(Model.GiamGia.Value.ToString());
+                                                                        tongtien = tongtien - giamGia;
+                                                                        @Model.GiamGia.Value.ToString("#,##")
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Write(0);
+                                                                    }
+                                                                </strong>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="8" class="right"><strong>TỔNG:</strong></th>
+                                                            <th class="right"><strong>@tongtien.ToString("#,##")</strong></th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="8" class="right"><strong>VAT:</strong></th>
+                                                            <th class="right">
+                                                                <strong>
+                                                                    @{
+                                                                        int vatct = int.Parse(@ct.VAT.ToString());
+                                                                        decimal vat = (tongtien / 100) * vatct;
+                                                                    }
+                                                                    @vat.ToString("#,##")
+                                                                </strong>
+                                                            </th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th colspan="8" class="right"><strong>TỔNG CỘNG:</strong></th>
+                                                            <th class="right">
+                                                                <strong>
+                                                                    @{
+                                                                        decimal TongCongTien = vat + tongtien;
+                                                                    }
+                                                                    @TongCongTien.ToString("#,##")
+                                                                </strong>
+                                                            </th>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            @*<div class="col-sm-3">
+                                             
+                                            </div>*@
+                                            <div class="col-sm-12">
+                                                <div class="well" style="float:left;padding:7px 25px">
+                                                    <address>
+                                                        <strong>Ghi chú</strong>
+                                                        <br> + <em> Số xe:     Báo sau</em>
+                                                        <br> + <em> Lái xe:    Báo sau </em>
+                                                        <br> + <em> Điện thoại lái xe: Báo sau </em>
+                                                    </address>
+                                                </div>
+                                                <ul class="list-unstyled amounts" style="float:right">
+                                                    <li>
+                                                        <img src="~/Content/Logo/con-dau.png" width="130" style="margin-right:55px;"/>
+                                                    </li>
+                                                    <li>
+                                                        @*<strong>DETRA SAIGON CORPORATION</strong>*@
+                                                    </li>
+                                                </ul>
+                                                <div class="clearfix"></div>
+                                                <br>
+                                                <a class="btn btn-lg blue hidden-print margin-bottom-5" onclick="javascript:window.print();">
+                                                    In hợp đồng
+                                                    <i class="fa fa-print"></i>
+                                                </a>
+                                                @if (Model.MaTrangThai == "3")
+                                                {
+                                                    <a class="btn btn-lg green hidden-print margin-bottom-5" href="@Url.Action("HoanThanhHopDong","HopDong",new {SoHopDong = @Model.SoHopDong })">
+                                                        Hoàn thành hợp đồng
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                }
+                                                @if (Model.MaTrangThai == "0")
+                                                {
+                                                    <a class="btn btn-lg red hidden-print margin-bottom-5" href="@Url.Action("HuyHopDong", "HopDong", new { SoHopDong = @Model.SoHopDong })">
+                                                        Hủy hợp đồng
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>

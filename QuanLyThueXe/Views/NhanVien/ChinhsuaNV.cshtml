@@ -1,0 +1,277 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model NhanVienViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<LoaiBangViewModel> Bang = ViewBag.Bang as IEnumerable<LoaiBangViewModel>;
+    IEnumerable<LoaiNhanVienViewModel> lstLoaiNV = ViewBag.MaLoaiNV as IEnumerable<LoaiNhanVienViewModel>;
+    IEnumerable<Tinh_TPViewModel> lstTinh = ViewBag.MaTinh as IEnumerable<Tinh_TPViewModel>;
+}
+<script src="~/Scripts/NhanVien.js"></script>
+@using (Html.BeginForm("ChinhsuaNV", "NhanVien", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="page-content" style="min-height:956px">
+        <!-- BEGIN PAGE HEADER-->
+        <!-- BEGIN PAGE BAR -->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Chỉnh Sửa Nhân Viên</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE BAR -->
+        <!-- BEGIN PAGE TITLE-->
+        <h3 class="page-title">
+            Chỉnh Sửa Thông tin nhân viên
+        </h3>
+        <!-- END PAGE TITLE-->
+        <!-- END PAGE HEADER-->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN PROFILE SIDEBAR -->
+                <div class="profile-sidebar">
+                    <!-- PORTLET MAIN -->
+                    <div class="portlet light profile-sidebar-portlet ">
+                        <!-- SIDEBAR USERPIC -->
+                        <div class="profile-userpic">
+                            @if (!String.IsNullOrEmpty(@Model.HinhAnh))
+                            {
+                                <img src="~/Content/HinhNV/@Model.HinhAnh" class="img-responsive" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/Content/HinhNV/no-image-account.png" class="img-responsive" alt="">
+                            }
+                        </div>
+                        <!-- END SIDEBAR USERPIC -->
+                        <!-- SIDEBAR USER TITLE -->
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">@Model.HoTen</div>
+                            <div class="profile-usertitle-job"> @Model.LoaiNhanViens.TenLoaiNV </div>
+                        </div>
+                        <div class="col-md-10">
+                            chọn ảnh mới
+                            <input type="file" name="HinhAnhNV" />
+                        </div>
+                        <!-- END SIDEBAR USER TITLE -->
+                        <!-- SIDEBAR BUTTONS -->
+                        <!-- END MENU -->
+                    </div>
+                    <!-- END PORTLET MAIN -->
+                </div>
+                <!-- END BEGIN PROFILE SIDEBAR -->
+                <!-- BEGIN PROFILE CONTENT -->
+                <div class="profile-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="portlet light ">
+                                <div class="portlet-title tabbable-line">
+                                    <div class="caption caption-md">
+                                        <i class="icon-globe theme-font hide"></i>
+                                        <span class="caption-subject font-blue-madison bold uppercase">Thông tin nhân viên</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tab-content">
+                                        <!-- PERSONAL INFO TAB -->
+                                        <div class="tab-pane active" id="tab_1_1">
+                                            <form role="form" action="#">
+                                                @Html.Hidden("MaNV", @Model.MaNV)
+                                                <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label class="control-label">Chức Vụ 
+                                                        <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <select name="MaLoaiNV" class="form-control isEmpty dropLoaiNhanVien">
+                                                            @if (Model.MaLoaiNV != null)
+                                                            {
+                                                                foreach (var lnv in lstLoaiNV)
+                                                                {
+                                                                    if (Model.MaLoaiNV == lnv.MaLoaiNV)
+                                                                    {
+                                                                        <option value="@lnv.MaLoaiNV">@lnv.TenLoaiNV</option>
+                                                                    }
+                                                                }
+                                                            }
+                                                            @foreach (var lnv in lstLoaiNV)
+                                                            {
+                                                                <option value="@lnv.MaLoaiNV">@lnv.TenLoaiNV</option>
+                                                            }
+                                                        </select>
+                                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                    </div>
+                                                    <label class="control-label">Họ tên 
+                                                        <span class="required" aria-required="true"> * </span>
+                                                    </label>
+                                                    <input type="text" value="@Model.HoTen" name="HoTen" class="form-control isEmpty" required="">
+                                                    <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-3" style="padding-left:0px">
+                                                        <label class="control-label">Số Điện Thoại
+                                                            <span class="required" aria-required="true"> * </span>
+                                                        </label>
+                                                        <input type="text" value="@Model.SDT" class="form-control isEmpty" name="SDT" required="" maxlength="15" />
+                                                        <span style="display: block;height: 6px;color:red;" class="error-message"></span>
+                                                    </div>
+                                                    <div class="col-md-7" style="padding-left:40px">
+                                                        <label class="control-label">Email</label>
+                                                        <input type="text" value="@Model.Email" class="form-control" name="Email" maxlength="100" />
+                                                        <span style="display: block;height: 6px;color:red;"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-3" style="padding-left:0px; padding-top:15px">
+                                                        <label class="control-label">Ngày Sinh</label>
+                                                        @if (!String.IsNullOrEmpty(Model.NgaySinh.ToString()))
+                                                        {
+                                                            <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="@Model.NgaySinh.Value.ToString("dd/MM/yyyy")" name="NgaySinh" aria-hidden="true" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="NgaySinh" aria-hidden="true" />
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-7" style="padding-left:40px;  padding-top:15px">
+                                                        <label class="control-label">Giới Tính</label>
+                                                        @if (@Model.GioiTinh == true)
+                                                        {
+                                                            <p style="margin-top:8px;">
+                                                                <span><input type="radio" name="GioiTinh" style="padding:4px" value="true" checked> Nam</span>
+                                                                <span><input type="radio" name="GioiTinh" style="padding:4px" value="false" /> Nữ</span>
+                                                            </p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p style="margin-top:8px;">
+                                                                <span><input type="radio" name="GioiTinh" style="padding:4px" value="true" /> Nam</span>
+                                                                <span><input type="radio" name="GioiTinh" style="padding:4px" value="false" checked /> Nữ</span>
+                                                            </p>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Địa Chỉ</label>
+                                                    <input type="text" value="@Model.DiaChi" class="form-control" name="DiaChi" maxlength="500" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Thành Phố</label>
+                                                    <select name="MaTinh" class="form-control">
+                                                        @if (Model.MaTinh != null)
+                                                        {
+                                                            foreach (var t in lstTinh)
+                                                            {
+                                                                if (t.MaTinh == Model.MaTinh)
+                                                                {
+                                                                    <option value="@t.MaTinh">@t.TenTinh</option>
+                                                                    break;
+                                                                }
+                                                            }
+                                                        }
+                                                        @foreach (var t in lstTinh)
+                                                        {
+                                                            <option value="@t.MaTinh">@t.TenTinh</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">CMND</label>
+                                                    <input type="text" value="@Model.CMND" class="form-control" name="CMND" maxlength="15" />
+                                                </div>
+                                                <div class="divBangLai" style="display:none">
+                                                    <div class="form-group">
+                                                        <label class="control-label">GPLX</label>
+                                                        <input type="text" class="form-control" name="GPLX" value="@Model.GPLX" maxlength="20" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Bằng lái</label>
+                                                        <select class="form-control" name="MaBang" aria-invalid="false" aria-describedby="select-error">
+                                                            @if (Model.MaBang != null)
+                                                            {
+                                                                foreach (var bl in Bang)
+                                                                {
+                                                                    if (bl.MaBang == Model.MaBang)
+                                                                    {
+                                                                        <option value="@bl.MaBang">@bl.TenBang</option>
+                                                                        break;
+                                                                    }
+                                                                }
+                                                            }
+                                                            @foreach (var bl in Bang)
+                                                            {
+                                                                <option value="@bl.MaBang">@bl.TenBang</option>
+                                                            }
+                                                        </select><span id="select-error" class="help-block help-block-error"></span>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <div class="col-md-3" style="margin-top:15px">
+                                                            <label class="control-label">Ngày hết hạn</label>
+                                                            @if (!String.IsNullOrEmpty(Model.NgayHetHan.ToString()))
+                                                            {
+                                                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="@Model.NgayHetHan.Value.ToString("dd/MM/yyyy")" name="NgayHetHan" aria-hidden="true" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="NgayHetHan" aria-hidden="true" />
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @*<div class="form-group">
+                                                    <label class="control-label">Status</label>
+                                                    <input type="text" value="@Model.Status" class="form-control" name="Status" maxlength="30" />
+                                                </div>*@
+                                                <div class="form-group">
+                                                    <label class="control-label">Ngày Nghỉ</label>
+                                                    @if (!String.IsNullOrEmpty(Model.NgayNghi.ToString()))
+                                                    {
+                                                        <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="@Model.NgayNghi.Value.ToString("dd/MM/yyyy")" name="NgaySinh" aria-hidden="true" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="" name="NgaySinh" aria-hidden="true" />
+                                                    }
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Lương Thưởng</label>
+                                                    <input type="text" value="@Model.LuongThuong" class="form-control" name="LuongThuong" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Thông Tin Khác</label>
+                                                    <textarea class="form-control" rows="3" name="ThongTinKhac">@Model.ThongTinKhac</textarea>
+                                                </div>
+                                                @*<div class="form-group">
+                                                    <label class="control-label">Thời Gian Gần Đây</label>
+                                                    <input type="text" value="@Model.ThoiGianGanDay" class="form-control" name="ThoiGianGanDay" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Số Lần</label>
+                                                    <input type="text" value="@Model.SoLan" class="form-control" name="SoLan" />
+                                                </div>*@
+                                                <div class="margiv-top-10">
+                                                    <button type="submit" class="btn red">
+                                                        <i class="fa fa-check"></i> Cập Nhật
+                                                    </button>
+                                                    <button class="btn">
+                                                        <a href="@Url.Action("MenuDanhSachNV", "NhanVien")">Hủy</a>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- END PERSONAL INFO TAB -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PROFILE CONTENT -->
+            </div>
+        </div>
+    </div>
+}

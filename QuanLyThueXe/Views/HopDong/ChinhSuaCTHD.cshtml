@@ -1,0 +1,100 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model CT_HopDongViewModel
+@{
+    ViewBag.Title = "ChinhSuaCTHD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var cp = Model.MaChiPhi.Split(',');
+}
+@using (Html.BeginForm("ChinhSuaCTHD", "HopDong"))
+{
+    @Html.Hidden("SoCTHopDong", Model.SoCTHopDong)
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Quản lý hợp đồng</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Chi tiết hợp đồng
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chỉnh sửa chi tiết hợp đồng</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số chi tiết hợp đồng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenKH" data-required="1" class="form-control" required="" readonly="" value="@Model.SoCTHopDong">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="MaLoTrinh" type="text" class="form-control" required="" readonly="" value="@Model.LoTrinhs.TenLoTrinh">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày đi
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" required="" readonly="" value="@Model.NgayDi.ToString("dd/MM/yyyy hh:mm:ss")">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày về
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" required="" readonly="" value="@Model.NgayVe.ToString("dd/MM/yyyy")">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" class="btn green" value="Cập nhật" />
+                                        <a href="/HopDong/MenuDanhSachCTHD" class="btn grey-salsa btn-outline">Trở lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+    </div>
+}
+
+
+
+

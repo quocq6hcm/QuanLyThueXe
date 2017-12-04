@@ -1,0 +1,207 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model CT_HopDongViewModel
+@{
+    ViewBag.Title = "ChiTietDieuPhoiXe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<XeViewModel> lstXe = ViewBag.Xe as IEnumerable<XeViewModel>;
+    IEnumerable<CongTiesViewModel> lstCongTy = ViewBag.CongTy as IEnumerable<CongTiesViewModel>;
+    IEnumerable<LoaiXeViewModel> lstLoaiXe = ViewBag.LoaiXe as IEnumerable<LoaiXeViewModel>;
+}
+@using (Html.BeginForm())
+{
+    @Html.Hidden("SoCTHopDong", Model.SoCTHopDong)
+    @Html.Hidden("MaXeCu",Model.MaXe)
+    <div class="page-content" style="min-height:1368px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN VALIDATION STATES-->
+                <div class="portlet light portlet-fit portlet-form bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Điều phối xe</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <!-- BEGIN FORM-->
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                @*<div class="alert alert-success display-hide">
+                                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                                    </div>*@
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số hợp đồng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenKH" data-required="1" class="form-control" required="" value="@Model.SoHopDong" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" required="" value="@Model.LoTrinhs.TenLoTrinh" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày đi
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="SDT" type="text" class="form-control" required="" value="@Model.NgayDi.ToString("dd/MM/yyyy  HH:mm:ss")" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày về
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="Email" type="text" class="form-control" value="@Model.NgayVe.ToString("dd/MM/yyyy  HH:mm:ss")" readonly="">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại xe
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="bs-select form-control" data-live-search="true" data-size="8" id="lstLoaiXe" name="MaLoaiXe">
+                                            <option value="@Model.MaLoaiXe">@Model.LoaiXes.TenLoaiXe</option>
+                                            @foreach (var lx in lstLoaiXe)
+                                            {
+                                                <option value="@lx.MaLoaiXe">@lx.TenLoaiXe</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="ChonCongTy">
+                                    <label class="control-label col-md-2">
+                                        Công ty
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaCongTy" id="congty_list" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            <optgroup label="">
+                                                @if (!String.IsNullOrEmpty(Model.MaCongTy))
+                                                {
+                                                    <option value="@Model.MaCongTy">@Model.CongTies.TenCongTy</option>
+                                                }
+                                                @foreach (var ct in lstCongTy)
+                                                {
+                                                    <option value="@ct.MaCongTy">@ct.TenCongTy</option>
+                                                }
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="BienSoXe">
+                                    <label class="control-label col-md-2">
+                                        Biển số xe
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="BienSoXe" data-required="1" class="form-control" value="@Model.BienSoXe">
+                                    </div>
+                                </div>
+                                <div class="form-group" id="Xe">
+                                    <label class="control-label col-md-2">
+                                        Xe
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select id="xe_list" name="MaXe" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            @{
+                                                if (Model.MaXe != null)
+                                                {
+                                                    foreach (var x in lstXe)
+                                                    {
+                                                        if (x.MaXe == Model.MaXe)
+                                                        {
+                                                            <option value="@x.MaXe">@x.BienSo</option>
+                                                        }
+                                                    }
+                                                    <optgroup label="">
+                                                        <option value="">Bỏ chọn</option>
+                                                        @foreach (var x in lstXe)
+                                                        {
+                                                            if (Model.MaXe != x.MaXe)
+                                                            {
+                                                                if (x.Status == "1")
+                                                                {
+                                                                    <option value="@x.MaXe">@x.BienSo (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@x.MaXe">@x.BienSo</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                                else
+                                                {
+                                                    <option></option>
+                                                    <optgroup label="">
+                                                        @foreach (var x in lstXe)
+                                                        {
+                                                            if (Model.MaXe != x.MaXe)
+                                                            {
+                                                                if (x.Status == "1")
+                                                                {
+                                                                    <option value="@x.MaXe">@x.BienSo (Đã xếp)</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@x.MaXe">@x.BienSo</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    </optgroup>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số lượng người
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="SoLuongNguoi" data-required="1" class="form-control" value="@Model.SoLuongNguoi">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ghi chú
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea class="form-control" rows="3" name="DiaDiemDon" readonly="">@Model.GhiChu</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="col-md-8 col-md-offset-4">
+                                    <input type="submit" class="btn green" value="Cập nhật" />
+                                    <a href="/DieuPhoi/MenuDieuPhoiXe" class="btn btn-default">Trở lại</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END FORM-->
+                    </div>
+                </div>
+                <!-- END VALIDATION STATES-->
+            </div>
+        </div>
+    </div>
+                                                }

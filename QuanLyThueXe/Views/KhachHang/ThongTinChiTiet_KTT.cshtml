@@ -1,0 +1,175 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model KhachHangViewModel
+@{
+    ViewBag.Title = "ThongTinChiTiet_KTT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content" style="min-height:956px">
+    <!-- BEGIN PAGE HEADER-->
+    <!-- BEGIN PAGE BAR -->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Khách hàng</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE BAR -->
+    <!-- BEGIN PAGE TITLE-->
+    <h3 class="page-title">
+        Thông tin khách hàng
+    </h3>
+    <!-- END PAGE TITLE-->
+    <!-- END PAGE HEADER-->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- BEGIN PROFILE SIDEBAR -->
+            <div class="profile-sidebar">
+                <!-- PORTLET MAIN -->
+                <div class="portlet light profile-sidebar-portlet ">
+                    <!-- SIDEBAR USERPIC -->
+                    <div class="profile-userpic">
+                        <img src="~/Content/Template/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+                    </div>
+                    <!-- END SIDEBAR USERPIC -->
+                    <!-- SIDEBAR USER TITLE -->
+                    <div class="profile-usertitle">
+                        <div class="profile-usertitle-name">@Model.TenKH</div>
+                        <div class="profile-usertitle-job"> @Model.LoaiKhachHangs.TenLoaiKH </div>
+                    </div>
+                    <!-- END SIDEBAR USER TITLE -->
+                    <!-- SIDEBAR BUTTONS -->
+                    <div class="profile-userbuttons">
+                        <button type="button" class="btn btn-circle green btn-sm">Gửi Email</button>
+                    </div>
+                    <div class="profile-usermenu">
+                        <ul class="nav">
+                            <li>
+                                <a>
+                                    <i class="fa fa-mobile"></i> @Model.SDT
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fa fa-envelope-o"></i> @Model.Email
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="icon-home"></i> @Model.DiaChiKH
+                                </a>
+                            </li>
+                            <li>
+                                <a>
+                                    <i class="fa fa-id-card"></i> @Model.CMND
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- END SIDEBAR BUTTONS -->
+                    <!-- END MENU -->
+                </div>
+                <!-- END PORTLET MAIN -->
+            </div>
+            <!-- END BEGIN PROFILE SIDEBAR -->
+            <!-- BEGIN PROFILE CONTENT -->
+            <div class="profile-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light ">
+                            <div class="portlet-title tabbable-line">
+                                <div class="caption caption-md">
+                                    <i class="icon-globe theme-font hide"></i>
+                                    <span class="caption-subject font-blue-madison bold uppercase">Thông tin khách hàng</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <div class="tab-content">
+                                    <!-- PERSONAL INFO TAB -->
+                                    <div class="tab-pane active" id="tab_1_1">
+                                        <form role="form" action="#">
+                                            <div class="form-group">
+                                                <label class="control-label">Mã khách hàng</label>
+                                                <input type="text" value="@Model.MaKH" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Người liên hệ</label>
+                                                <input type="text" value="@Model.NguoiLienHe" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Giới tính</label>
+                                                @if (Model.GioiTinh == true)
+                                                {
+                                                    <input type="text" value="Nam" class="form-control" readonly>
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" value="Nữ" class="form-control" readonly>
+                                                }
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Giảm giá</label>
+                                                <input type="text" value="@Model.GiamGia" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">CMND</label>
+                                                <input type="text" value="@Model.CMND" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Số điện thoại</label>
+                                                <input type="text" value="@Model.SDT" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Email</label>
+                                                <input type="text" value="@Model.Email" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Địa chỉ</label>
+                                                <input type="text" value="@Model.DiaChiKH" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Tên công ty</label>
+                                                <input type="text" value="@Model.TenCongTy" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Số điện thoại công ty</label>
+                                                <input type="text" value="@Model.SDTCongTy" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Địa chỉ công ty</label>
+                                                <input type="text" value="@Model.DiaChiCongTy" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Mã số thuế</label>
+                                                <input type="text" value="@Model.MaSoThue" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Ghi chú</label>
+                                                <textarea class="form-control" rows="3" readonly>@Model.GhiChu</textarea>
+                                            </div>
+                                            <div class="margiv-top-10">
+                                                <a href="@Url.Action("ChinhSuaKhachHangThanThiet","KhachHang",new {@MaKH = @Model.MaKH })" class="btn green"> Cập nhật</a>
+                                                <button class="btn red">
+                                                    <a href="@Url.Action("XoaKHTT","KhachHang",new {@MaKH = @Model.MaKH })" style="color:white">Xóa</a>
+                                                </button>
+                                                <a href="@Url.Action("MenuDanhSachKhachHangThanThiet","KhachHang")" class="btn grey-salsa btn-outline">Trở về</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- END PERSONAL INFO TAB -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PROFILE CONTENT -->
+        </div>
+    </div>
+</div>
+

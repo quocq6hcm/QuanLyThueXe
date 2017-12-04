@@ -1,0 +1,96 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<NhanVienViewModel>
+@{
+    ViewBag.Title = "MenuDanhSachNV";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-content" style="min-height:1368px">
+    <!-- BEGIN PAGE HEADER-->
+    <div class="page-bar">
+        <ul class="page-breadcrumb">
+            <li>
+                <a href="index.html">Trang chủ</a>
+                <i class="fa fa-circle"></i>
+            </li>
+            <li>
+                <span>Nhân Viên</span>
+            </li>
+        </ul>
+    </div>
+    <!-- END PAGE HEADER-->
+    <h3 class="page-title">
+        Nhân Viên
+    </h3>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Danh sách nhân viên</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr role="row">
+                                    <th> Mã NV </th>
+                                    <th> Chức Vụ</th>
+                                    <th> Họ Tên </th>
+                                    <th> Email </th>
+                                    <th> SDT </th>
+                                    <th> Status </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("ChinhsuaNV", "NhanVien", new { @id= item.MaNV})">@item.MaNV</a>
+                                        </td>
+                                        <td> @item.MaLoaiNV </td>
+                                        <td> @item.HoTen </td>
+                                        <td> @item.Email</td>
+                                        <td> @item.SDT </td>
+                                        <td>
+                                            @{
+                                                if (item.Status == "0")
+                                                {
+                                                    <span class="label label-sm label-default">
+                                                        Đang chờ
+                                                    </span>
+                                                }
+                                                if (item.Status == "1")
+                                                {
+                                                    <span class="label label-sm label-primary">
+                                                        Đang chạy
+                                                    </span>
+                                                }
+                                                if (item.Status == "2")
+                                                {
+                                                    <span class="label label-sm label-warning">
+                                                        Hoàn Thành
+                                                    </span>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>
+
+

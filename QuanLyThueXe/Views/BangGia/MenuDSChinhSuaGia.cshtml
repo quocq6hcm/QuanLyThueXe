@@ -1,0 +1,82 @@
+﻿@using QuanLyThueXe.ViewModels;
+@model IEnumerable<BangGiaViewModel>
+
+@{
+    ViewBag.Title = "MenuDSChinhSuaGia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<KhachHangViewModel> lstKH = ViewBag.KhachHang as List<KhachHangViewModel>;
+    List<LoaiXeViewModel> lstLX = ViewBag.LoaiXe as List<LoaiXeViewModel>;
+    List<LoTrinhViewModel> lstLT = ViewBag.LoTrinh as List<LoTrinhViewModel>;
+}
+
+<div class="page-content" style="min-height:1368px">
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red"></i>
+                            <span class="caption-subject font-red sbold uppercase">Bảng giá</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                            <thead>
+                                <tr>
+                                    <th> Mã bảng giá </th>
+                                    <th> Loại Xe</th>
+                                    <th> Công ty </th>
+                                    <th> Lộ trình </th>
+                                    <th> Thời gian </th>
+                                    <th> Số KM </th>
+                                    <th> Giá </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="@Url.Action("ChinhSuaGia","BangGia",new {@id = item.MaBangGia })"> @item.MaBangGia</a>
+                                        </td>
+                                        @*<td><span> @item.MaBangGia </span></td>*@
+                                        @foreach (var lx in lstLX)
+                                        {
+                                            if (lx.MaLoaiXe == item.MaLoaiXe)
+                                            {
+                                                <td><span> @lx.TenLoaiXe </span></td>
+                                            }
+                                        }
+                                        @foreach (var ct in lstCT)
+                                        {
+                                            if (ct.MaCongTy == item.MaCongTy)
+                                            {
+                                                <td><span>@ct.TenCongTy </span></td>
+                                            }
+                                        }
+                                        @foreach (var lt in lstLT)
+                                        {
+                                            if (lt.MaLoTrinh == item.MaLoTrinh)
+                                            {
+                                                <td><span>@lt.TenLoTrinh </span></td>
+                                            }
+                                        }
+                                        <td><span> @item.ThoiGian </span></td>
+                                        <td><span>@item.SoKM</span></td>
+                                        <td><span>@item.Gia </span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        }
+    </div>
+</div>
+
+

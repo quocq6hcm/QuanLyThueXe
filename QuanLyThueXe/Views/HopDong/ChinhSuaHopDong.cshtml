@@ -1,0 +1,220 @@
+﻿@using QuanLyThueXe.ViewModels
+@model HopDongViewModel
+@{
+    ViewBag.Title = "ChinhSuaHopDong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<ChiPhiPhatSinhViewModel> ListCPPS = ViewBag.ChiPhi as List<ChiPhiPhatSinhViewModel>;
+    IEnumerable<ChiTietChiPhiPhatSinhViewModel> lstCTCPPS = ViewBag.CTCPPS as IEnumerable<ChiTietChiPhiPhatSinhViewModel>;
+    List<LoTrinhViewModel> loTrinh = ViewBag.LoTrinh as List<LoTrinhViewModel>;
+    List<KhachHangViewModel> khachHang = ViewBag.KhachHang as List<KhachHangViewModel>;
+}
+@using (Html.BeginForm())
+{
+    @Html.Hidden("SoHopDong", Model.SoHopDong)
+    <div class="page-content" style="min-height:1368px">
+        <!-- BEGIN PAGE HEADER-->
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Trang chủ</a>
+                    <i class="fa fa-circle"></i>
+                </li>
+                <li>
+                    <span>Quản lý hợp đồng</span>
+                </li>
+            </ul>
+        </div>
+        <!-- END PAGE HEADER-->
+        <h3 class="page-title">
+            Hợp đồng
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet light portlet-fit bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-settings font-red" style="font-size:20px"></i>
+                            <span class="caption-subject font-red sbold uppercase" style="font-size:25px">Chi tiết hợp đồng</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div id="form_sample_1" class="form-horizontal" novalidate="novalidate">
+                            <div class="form-body">
+                                <div class="alert alert-danger display-hide">
+                                    <button class="close" data-close="alert"></button> Bạn còn một số lỗi, vui lòng nhập chính xác!!
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Số hợp đồng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="TenKH" data-required="1" class="form-control" required="" readonly="" value="@Model.SoHopDong">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ngày lập
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input name="CMND" type="text" class="form-control" required="" readonly="" value="@Model.NgayLapHD.Value.ToString("dd/MM/yyyy")">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Khách hàng
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaKH" id="khachhang_list" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            <optgroup label="">
+                                                <option value="@Model.MaKH">@Model.KhachHangs.TenKH</option>
+                                                @foreach (var kh in khachHang)
+                                                {
+                                                    if (kh.MaKH != Model.MaKH)
+                                                    {
+                                                        <option value="@kh.MaKH">@kh.TenKH</option>
+                                                    }
+                                                }
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Lộ trình
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select name="MaLoTrinh" id="country_list" class="form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            <optgroup label="">
+                                                <option value="@Model.MaLoTrinh">@Model.LoTrinhs.TenLoTrinh</option>
+                                                <option></option>
+                                                @if (loTrinh != null)
+                                                {
+                                                    foreach (var lt in loTrinh)
+                                                    {
+                                                        <option value="@lt.MaLoTrinh">@lt.TenLoTrinh</option>
+                                                    }
+                                                }
+                                            </optgroup>
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Người tạo HĐ
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="MaNV" data-required="1" class="form-control" readonly="" value="@Model.NhanViens.HoTen">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Trạng thái
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="MaTrangThai" data-required="1" class="form-control" readonly="" value="@Model.TrangThaiHopDongs.TenTrangThai">
+                                    </div>
+                                </div>
+                                @if (lstCTCPPS != null)
+                                {
+                                    foreach (var ct in lstCTCPPS)
+                                    {
+                                        foreach (var cp in ListCPPS)
+                                        {
+                                            if (ct.MaChiPhi == cp.MaChiPhi)
+                                            {
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-2">
+                                                        Tên chi phí
+                                                        <span class="required" aria-required="true"></span>
+                                                    </label>
+                                                    <div class="col-md-3">
+                                                        <input type="text" name="MaTrangThai" data-required="1" class="form-control" readonly="" value="@cp.TenChiPhi">
+                                                    </div>
+                                                    <label class="control-label col-md-1">
+                                                        Số lượng
+                                                        <span class="required" aria-required="true"></span>
+                                                    </label>
+                                                    <div class="col-md-2">
+                                                        <input type="text" name="MaTrangThai" data-required="1" class="form-control" readonly="" value="@ct.SoLuong">
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                }
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Loại chi phí
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-3">
+                                        <select id="chiphi_list" name="MaChiPhi" class="ChiPhiList form-control select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+                                            <optgroup label="">
+                                                @foreach (var cp in ListCPPS)
+                                                {
+                                                    <option value="@cp.MaChiPhi">@cp.TenChiPhi</option>
+                                                }
+                                            </optgroup>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-md-1">
+                                        Số lượng
+                                        <span class="required" aria-required="true">*</span>
+                                    </label>
+                                    <div class="col-md-1">
+                                        <input name="SoLuong" type="text" class="form-control SoLuong" required="" value="1">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn blue" id="add-CP">Thêm</button>
+                                    </div>
+                                    <input type="hidden" id="ChiPhi" name="strMaChiPhi" value="" />
+                                    <input type="hidden" id="SoLuong" name="strSoLuong" value="" />
+                                </div>
+
+                                <div id="add-CPPS">
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Giảm giá
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="GiamGia" data-required="1" class="form-control" value="@Model.GiamGia">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2">
+                                        Ghi chú
+                                        <span class="required" aria-required="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <textarea name="GhiChu" class="form-control" rows="3">@Model.GhiChu</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" id="update-HD" class="btn green" value="Cập nhật" />
+                                        <a href="/HopDong/MenuDanhSachChinhSuaHopDong" class="btn grey-salsa btn-outline">Trở lại</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+    </div>
+}
