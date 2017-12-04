@@ -10,7 +10,7 @@ using QuanLyThueXe.Queries;
 namespace QuanLyThueXe.Controllers
 {
     public class ThuChiController : Controller
-    {
+    {///
         #region Phiếu chi
         /// <summary>
         /// Danh sach phieu chi
