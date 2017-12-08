@@ -5966,6 +5966,7 @@
     <Content Include="Models\QuanLyThueXe.edmx.diagram">
       <DependentUpon>QuanLyThueXe.edmx</DependentUpon>
     </Content>
+    <Content Include="tsconfig.json" />
     <None Include="Properties\PublishProfiles\QLThueXe.pubxml" />
     <None Include="Properties\PublishProfiles\QLTX.pubxml" />
     <None Include="Properties\PublishProfiles\QuanLyThueXe.pubxml" />
